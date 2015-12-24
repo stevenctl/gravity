@@ -59,7 +59,7 @@ public class MapBodyBuilder {
             bd.type = BodyType.StaticBody;
             Body body = world.createBody(bd);
             body.createFixture(shape, 1);
-
+            body.setUserData("world");
             bodies.add(body);
 
             shape.dispose();

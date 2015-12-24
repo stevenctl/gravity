@@ -32,9 +32,9 @@ public class GameStateManager {
 		}
 	}
 	
-	void tick(SpriteBatch g){
-		currentState.draw(g);
+	void tick(SpriteBatch g){		
 		currentState.update();
+		currentState.draw(g);
 	}
 
 	public void keyDown(int keycode) {

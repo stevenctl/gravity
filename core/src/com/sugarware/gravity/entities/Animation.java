@@ -83,6 +83,16 @@ public class Animation {
 		
 	}
 	
+	public Animation clone(){
+		Animation n = new Animation();
+		n.animationList = this.animationList;
+		n.setFrames(0);
+		n.delay = delay;
+		n.playOnce = playOnce;
+		return n;
+	}
+	
+	
 	public TextureRegion[] getFrames(){return frames;}
 	public int getFrame() {return curFrame;}
 	public int getNumFrames(){return frames.length;}

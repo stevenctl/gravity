@@ -1,6 +1,7 @@
 package com.sugarware.gravity;
 
 import com.badlogic.gdx.math.Vector2;
+import com.sugarware.gravity.levels.PlayState.Directions;
 
 public class MathUtils {
 	
@@ -25,5 +26,16 @@ public class MathUtils {
 			   (float)Math.sin(theta) * mag);
 		return v2;
 	}
+	
+	public static float dirToAngle(Directions d){
+		switch(d){
+		case Up: return (float) (Math.PI / 2);
+		case Down: return (float) (3 * Math.PI / 2);
+		case Right: return 0;
+		case Left: return (float) Math.PI;
+		}
+		return -1;
+	}
+	
 	
 }

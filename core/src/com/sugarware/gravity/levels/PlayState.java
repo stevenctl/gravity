@@ -1,21 +1,26 @@
+
 package com.sugarware.gravity.levels;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.entities.Entity;
 import com.sugarware.gravity.entities.Player;
 
 public abstract class PlayState extends GameState{
 	
 	
 	Player p;
-	
+	public ArrayList<Entity> entities;
 	public PlayState(String map_path, float ang, float mag) {
 		super(map_path, ang, mag);
-		
+		entities = new ArrayList<Entity>();
 	}
 
 	
@@ -23,38 +28,32 @@ public abstract class PlayState extends GameState{
 	public void update(){
 		
 		p.update();
-		
+		for(Entity e : entities)e.update();
 		cam.position.set(p.body.getPosition().x, p.body.getPosition().y, 0);
+		
+		if(cam.position.x - cam.viewportWidth / 2 < 0){
+			cam.position.x = cam.viewportWidth / 2;	
+		}else if(cam.position.x + cam.viewportHeight / 2 > w / 8){
+			cam.position.x = w / 8 - cam.viewportHeight / 2;
+		}
+		
+		
+		if(cam.position.y - cam.viewportHeight / 2 < 0){
+			cam.position.y = cam.viewportHeight / 2;	
+		}else if(cam.position.y + cam.viewportHeight / 2 > h / 8){
+			cam.position.y = h / 8 - cam.viewportHeight / 2;
+		}
+		
+		
+		
+		
+		
 		cam.update();
 		super.update();
 		
 	}
 	
-    public boolean isPlayerGrounded(float deltaTime) {				
-		
-		Array<Contact> contactList = world.getContactList();
-		for(int i = 0; i < contactList.size; i++) {
-			Contact contact = contactList.get(i);
-			if(contact.isTouching() && (contact.getFixtureA() == p.playerSensorFixture ||
-			   contact.getFixtureB() == p.playerSensorFixture)) {				
-				
-				Vector2 pos = p.body.getPosition();
-				WorldManifold manifold = contact.getWorldManifold();
-				boolean below = true;
-				for(int j = 0; j < manifold.getNumberOfContactPoints(); j++) {
-					below &= (manifold.getPoints()[j].y < pos.y - 1.5f);
-				}
-				
-				if(below) {
-																
-					return true;			
-				}
-				
-				return false;
-			}
-		}
-		return false;
-	}
+    
 
 	@Override
 	public void keyDown(int keycode) {
@@ -121,6 +120,9 @@ public abstract class PlayState extends GameState{
 		Right, Left, Up, Down
 	}
 	
+	
+	
+	
 	public Directions getGravityDirection(){
 		//gTheta = MathUtils.normalAngle(gTheta);
 		
@@ -134,6 +136,16 @@ public abstract class PlayState extends GameState{
 			return Directions.Right;
 		}
 			
+	}
+
+
+	
+	public void draw2(SpriteBatch g) {
+		
+		for(Entity e : entities)e.draw(g);
+		p.draw(g);
+		
+		
 	}
 
 }

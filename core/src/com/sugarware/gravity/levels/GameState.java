@@ -3,6 +3,7 @@ package com.sugarware.gravity.levels;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -17,8 +18,8 @@ public abstract class GameState {
 	static final float TIME_STEP = 1/60f;
 	static final int VELOCITY_ITERATIONS = 6, POSITION_ITERATIONS = 2;
 	
-	
-	protected World world;
+	public float w, h;
+	public World world;
 	private Vector2 gVector;
 	public float gTheta;
 	public float gVal;
@@ -33,8 +34,14 @@ public abstract class GameState {
 		cam = new OrthographicCamera();
 		updateGravity();
 		world = new World(gVector, false);
+		world.setContactListener(new CollisionListener());
+		
+		
 		tilemap = new TmxMapLoader().load(map_path);
 		MapBodyBuilder.buildShapes(tilemap, world);
+		MapProperties prop = tilemap.getProperties();
+		w = prop.get("width",Integer.class) * prop.get("tilewidth", Integer.class);
+		h = prop.get("height", Integer.class)* prop.get("tileheight", Integer.class);
 		
 	}
 	
@@ -48,10 +55,10 @@ public abstract class GameState {
 	static final int[] frontLayers = new int[]{2,3};
 	
 	Vector2 op;
+	public boolean debugCollisions;
+	
 	public void draw(SpriteBatch g){
-		if(renderer == null)renderer = new Box2DDebugRenderer();
-		renderer.setDrawVelocities(true);
-		//renderer.render(world, cam.combined);
+		
 		if(mapRenderer == null){
 			mapRenderer = new OrthogonalTiledMapRenderer(tilemap, g);
 		}
@@ -72,14 +79,16 @@ public abstract class GameState {
 		mapRenderer.render(frontLayers);
 		toggleMapCam();
 		
-	
+		if(renderer == null)renderer = new Box2DDebugRenderer();
+		
+		if(debugCollisions)renderer.render(world, cam.combined);
 	}
 	
 	
 	float oh;
 	float ow;
 	private boolean mapCam = false;
-	private void toggleMapCam(){
+	protected void toggleMapCam(){
 		if(mapCam){
 			cam.position.set(op,0);
 			cam.viewportHeight = oh;
@@ -97,12 +106,25 @@ public abstract class GameState {
 			cam.viewportWidth = ow * 8;
 			cam.position.set(op.x *8,op.y * 8, 0);
 			mapCam = true;
+			
+			
+				
+
+			
+			
+			
 		}
 		cam.update();
 	}
 	
 	
+	public void setGravity(float theta){
+		gTheta = theta;
+		updateGravity();
+	}
+	
 	public abstract void draw2(SpriteBatch g);
+	
 	
 	protected void updateGravity(){
 		float xgrav = (float) (Math.cos(gTheta) * gVal);

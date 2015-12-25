@@ -24,7 +24,7 @@ public abstract class GameState {
 	public float gTheta;
 	public float gVal;
 	public OrthographicCamera cam;
-	protected TiledMap tilemap;
+	public TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	
 	public GameState(String map_path, float g_theta, float g_val){
@@ -39,6 +39,7 @@ public abstract class GameState {
 		
 		tilemap = new TmxMapLoader().load(map_path);
 		MapBodyBuilder.buildShapes(tilemap, world);
+		
 		MapProperties prop = tilemap.getProperties();
 		w = prop.get("width",Integer.class) * prop.get("tilewidth", Integer.class);
 		h = prop.get("height", Integer.class)* prop.get("tileheight", Integer.class);

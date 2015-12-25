@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="65">
+ <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32">
+  <image source="tset.png" width="192" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 4" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJyzZmBgsB4AzM0wcIBr1O4BsZsVC2YjwQwWHGYQMhNkNzcWzEOi+7GZQcjMUbtHnt0DBUbtHhi7yS3PkAG+sg2XmehplJT0jc8cYswctXvU7lG7h7fdAPMVENI=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <objectgroup name="Entities">
+  <object id="57" name="gswitch down up" x="162" y="137"/>
+  <object id="60" name="gswitch up down" x="545" y="45"/>
+  <object id="62" name="gswitch down right" x="837.333" y="141.333"/>
+  <object id="63" name="gswitch right left" x="942.667" y="445.333"/>
+  <object id="64" name="gswitch down down" x="785" y="459"/>
+ </objectgroup>
+ <objectgroup name="Collisions">
+  <object id="42" x="0" y="160" width="192" height="192"/>
+  <object id="43" x="512" y="160" width="352" height="192"/>
+  <object id="44" x="544" y="480" width="256" height="320"/>
+  <object id="45" x="0" y="480" width="128" height="320"/>
+  <object id="46" x="960" y="32" width="32" height="768"/>
+  <object id="59" x="0" y="0" width="992" height="32"/>
+ </objectgroup>
+</map>

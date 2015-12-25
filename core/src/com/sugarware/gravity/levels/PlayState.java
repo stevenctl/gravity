@@ -5,12 +5,9 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Contact;
-import com.badlogic.gdx.physics.box2d.WorldManifold;
-import com.badlogic.gdx.utils.Array;
 import com.sugarware.gravity.Angles;
 import com.sugarware.gravity.entities.Entity;
+import com.sugarware.gravity.entities.MapBodyBuilder;
 import com.sugarware.gravity.entities.Player;
 
 public abstract class PlayState extends GameState{
@@ -21,6 +18,7 @@ public abstract class PlayState extends GameState{
 	public PlayState(String map_path, float ang, float mag) {
 		super(map_path, ang, mag);
 		entities = new ArrayList<Entity>();
+		MapBodyBuilder.buildEntities(this);
 	}
 
 	
@@ -139,6 +137,10 @@ public abstract class PlayState extends GameState{
 	}
 
 
+	public void draw(SpriteBatch g){
+		super.draw(g);
+		p.hud.draw();
+	}
 	
 	public void draw2(SpriteBatch g) {
 		

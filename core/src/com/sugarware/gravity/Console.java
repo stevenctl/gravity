@@ -18,8 +18,18 @@ public class Console implements Runnable{
 	public void run() {
 		Scanner sc = new Scanner(System.in);
 		while(true){
-			try{
 			String in = sc.nextLine();
+			cmd(in);
+			
+			
+		}
+	}
+
+	
+	
+	public static void cmd(String in){
+		try{
+			
 			String[] parts = in.split(" ");
 			
 			
@@ -41,14 +51,10 @@ public class Console implements Runnable{
 			}catch(Exception e){
 				System.err.println(e.getCause());
 			}
-			
-			
-		}
 	}
-
 	
 	
-	static Directions strToDir(String s){
+	public static Directions strToDir(String s){
 		System.out.println("d: " + s);
 		if(s.equals("up"))return Directions.Up;
 		if(s.equals("down"))return Directions.Down;

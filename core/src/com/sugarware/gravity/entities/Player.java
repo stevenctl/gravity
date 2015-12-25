@@ -4,7 +4,6 @@ package com.sugarware.gravity.entities;
 import java.text.DecimalFormat;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
+import com.sugarware.gravity.HUD;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
@@ -22,7 +22,7 @@ public class Player extends Entity {
 	
 	
 	public Object colitem;
-	
+	public HUD hud;
 	final float maxvel = 15f;
 	final float accel = 10f;
 	final float damp1 = 5.0f;
@@ -33,16 +33,18 @@ public class Player extends Entity {
 	public Fixture playerSensorFixture;
 	Vector2 sensorPos;
 	boolean jumping = false;
+	private boolean hasDoubleJumped;
+	private int jumpCool = 20;
 	
 	
 	int animState = 0;
 	static final int run = 0;
 	static final int jump = 1;
-	
+	static final int flip = 2;
 	
 	public Player(PlayState gs,float x, float y){
 		super(gs);
-		anim = new Animation("cybertrent.png",40,40,new int[]{4,3},false);
+		anim = new Animation("cybertrent.png",40,40,new int[]{4,1,3},false);
 		anim.setDelay(100);
 		setGravityDir(gs.getGravityDirection());
 		width = height = 2;
@@ -76,13 +78,30 @@ public class Player extends Entity {
 		
 		shape.dispose();
 		impulse = new Vector2();
+		
+		hud = new HUD(){
+			@Override
+			public void draw() {
+				g.begin();
+				if(colitem instanceof Switch){
+					if(!((Switch)colitem).activated)
+					bmf.draw(g,"Press E", right - 80, top - 20);
+				}
+				g.end();
+			}
+		};
+		
 
 	}
 
 	boolean turnme = false;
 	float diff = -1f;
 	
-	BitmapFont bmf;
+	
+
+	private boolean moving;
+
+	
 	public void update(){
 		setGravityDir(gs.getGravityDirection());
 		
@@ -93,16 +112,19 @@ public class Player extends Entity {
 		}else{
 			body.setLinearDamping(damp2);
 		}
+		
+		
 		if(jumping){
-			if(gs.getGravityDirection() == Directions.Right||
-					gs.getGravityDirection() == Directions.Left){
-				if(Math.abs(body.getLinearVelocity().x) < 2)jumping = false;
-			}else{
-				if(Math.abs(body.getLinearVelocity().y) < 2)jumping = false;
-			}
+			if(jumpCool <= 0){
+				if(this.isGrounded()){
+					hasDoubleJumped = false;
+					jumping = false;
+				}
+			}else jumpCool--;
 		}
 		
-		boolean moving = false;
+		
+		moving = false;
 		if(gs.getGravityDirection() == Directions.Right||
 				gs.getGravityDirection() == Directions.Left){
 			
@@ -121,7 +143,6 @@ public class Player extends Entity {
 			
 		}
 		
-		if(moving || animState == jump)anim.update();
 		
 		 
 		body.setTransform(body.getPosition(), MathUtils.normalAngle(gs.gTheta +  Math.PI / 2));
@@ -171,7 +192,12 @@ public class Player extends Entity {
 	}
 	
 	private void updateAnimation() {
-		if(jumping){
+		if(hasDoubleJumped){
+			if(animState != flip){
+				animState = flip;
+				anim.setFrames(flip);
+			}
+		}else if(jumping){
 			if(animState != jump){
 				animState = jump;
 				anim.setFrames(jump);
@@ -182,7 +208,7 @@ public class Player extends Entity {
 				anim.setFrames(run);
 			}
 		}
-		
+		if(animState != run || moving)anim.update();
 	}
 
 	
@@ -242,7 +268,8 @@ public class Player extends Entity {
 			
 		
 		case Keys.SPACE:
-			if(isGrounded()){
+			if(isGrounded() || (jumping && !hasDoubleJumped)){
+				if(jumping && !hasDoubleJumped)hasDoubleJumped = true;
 				if(gs.getGravityDirection() == Directions.Up ||
 						gs.getGravityDirection() == Directions.Down){
 				jumpVector.set(0,  getJumpVel(jumpPower) );
@@ -252,7 +279,8 @@ public class Player extends Entity {
 					jumpVector.set(-getJumpVel(jumpPower),0 );
 					jumping = true;
 				}
-				
+				jumpCool = 20;
+			
 				body.setLinearVelocity(jumpVector);
 			}
 		}

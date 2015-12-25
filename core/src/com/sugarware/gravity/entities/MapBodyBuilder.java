@@ -19,6 +19,10 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.sugarware.gravity.Console;
+import com.sugarware.gravity.levels.GameState;
+import com.sugarware.gravity.levels.PlayState;
+import com.sugarware.gravity.levels.PlayState.Directions;
 
 public class MapBodyBuilder {
 
@@ -59,6 +63,7 @@ public class MapBodyBuilder {
             bd.type = BodyType.StaticBody;
             Body body = world.createBody(bd);
             body.createFixture(shape, 1);
+           
             body.setUserData("world");
             bodies.add(body);
 
@@ -116,4 +121,30 @@ public class MapBodyBuilder {
         chain.createChain(worldVertices);
         return chain;
     }
+
+	public static void buildEntities(PlayState gs) {
+		  MapObjects objects = gs.tilemap.getLayers().get("Entities").getObjects();
+		  for(MapObject object : objects) {
+			  if(object.getName() !=null){
+				  String n = object.getName();
+				  Shape s = null;
+				  if(object instanceof RectangleMapObject){
+					  s = getRectangle((RectangleMapObject)object);
+					  
+					  
+				  }
+				  
+				  if(n.split(" ")[0].equals("gswitch")){
+					
+					  Directions m = Console.strToDir(n.split(" ")[1]);
+					  Directions g = Console.strToDir(n.split(" ")[2]);
+					  GravSwitch sw = new GravSwitch( gs, s, m);
+					  sw.setGravityDir(g);
+					  gs.entities.add(sw);
+				  }
+				  
+			  }
+		  }
+		
+	}
 }

@@ -20,7 +20,7 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.sugarware.gravity.Console;
-import com.sugarware.gravity.levels.GameState;
+import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
 
@@ -72,6 +72,13 @@ public class MapBodyBuilder {
         return bodies;
     }
 
+    
+    private static Vector2 rectToCoords(Vector2 coords,Rectangle rectangle){
+    	coords.x = (rectangle.x + rectangle.width * 0.5f) / ppt;
+    	coords.y = (rectangle.y + rectangle.height * 0.5f ) / ppt;
+    	return coords;
+    }
+    
     private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
         Rectangle rectangle = rectangleObject.getRectangle();
         PolygonShape polygon = new PolygonShape();
@@ -122,29 +129,30 @@ public class MapBodyBuilder {
         return chain;
     }
 
+    
+    private static Vector2 coords = new Vector2();
 	public static void buildEntities(PlayState gs) {
 		  MapObjects objects = gs.tilemap.getLayers().get("Entities").getObjects();
+		 
 		  for(MapObject object : objects) {
 			  if(object.getName() !=null){
 				  String n = object.getName();
-				  Shape s = null;
+				 
 				  if(object instanceof RectangleMapObject){
-					  s = getRectangle((RectangleMapObject)object);
-					  
-					  
-				  }
-				  
-				  if(n.split(" ")[0].equals("gswitch")){
 					
-					  Directions m = Console.strToDir(n.split(" ")[1]);
-					  Directions g = Console.strToDir(n.split(" ")[2]);
-					  GravSwitch sw = new GravSwitch( gs, s, m);
-					  sw.setGravityDir(g);
-					  gs.entities.add(sw);
-				  }
+					  
 				  
+				  
+					if(n.split(" ")[0].equals("gswitch")){
+						 coords = rectToCoords(coords,((RectangleMapObject) object).getRectangle());
+								 Console.cmd("add switch " +
+										 		coords.x +" " + coords.y + " " +
+										 		n.split(" ")[1] + " " + n.split(" ")[2]);			
+				  	}
+				  }
 			  }
 		  }
+		 // System.out.println("Loaded "  + objects.getCount() + " things");
 		
 	}
 }

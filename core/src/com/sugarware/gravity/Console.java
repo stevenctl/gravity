@@ -20,9 +20,9 @@ public class Console implements Runnable{
 		while(true){
 			String in = sc.nextLine();
 			cmd(in);
-			
-			
+
 		}
+		
 	}
 
 	

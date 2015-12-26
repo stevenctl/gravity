@@ -16,7 +16,7 @@ public class TestState extends PlayState {
 	TiledBackground bg;
 	BitmapFont bmf;
 	public TestState() {
-		super("test.tmx", Angles.DOWN, 6 * 9.8f);
+		super("level1.tmx", Angles.DOWN, 6 * 9.8f);
 		p = new Player(this,20, 80);
 		cam.viewportWidth = 60; cam.viewportHeight = 30;
 		cam.update();

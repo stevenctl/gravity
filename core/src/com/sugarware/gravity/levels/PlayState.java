@@ -12,19 +12,22 @@ import com.sugarware.gravity.entities.Player;
 
 public abstract class PlayState extends GameState{
 	
-	
+	boolean loaded = false;
 	Player p;
 	public ArrayList<Entity> entities;
 	public PlayState(String map_path, float ang, float mag) {
 		super(map_path, ang, mag);
 		entities = new ArrayList<Entity>();
-		MapBodyBuilder.buildEntities(this);
+		
 	}
 
 	
 	
 	public void update(){
-		
+		if(!loaded){
+			load();
+			loaded = true;
+		}
 		p.update();
 		for(Entity e : entities)e.update();
 		cam.position.set(p.body.getPosition().x, p.body.getPosition().y, 0);
@@ -52,6 +55,12 @@ public abstract class PlayState extends GameState{
 	}
 	
     
+
+	private void load() {
+		MapBodyBuilder.buildEntities(this);
+	}
+
+
 
 	@Override
 	public void keyDown(int keycode) {

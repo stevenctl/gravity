@@ -17,6 +17,8 @@ public class CollisionListener implements ContactListener {
 		Player p = null;
 		Object o = null;
 		
+		
+		
 		if(a.getBody().getUserData() instanceof Player){
 			p = (Player)a.getBody().getUserData();
 			o = (Object) b.getBody().getUserData();
@@ -26,12 +28,16 @@ public class CollisionListener implements ContactListener {
 			o = (Object)b.getBody().getUserData();
 		}
 		
-		if(p != null){
-			if(o instanceof Entity){
-				if(o != p)
-					p.colitem = o;
-			}	
+		if(p == null)return;
+		
+		
+		if(o instanceof Entity){
+			if(o != p)
+				p.colitem = o;
 		}
+		//if(!(o instanceof Player))System.out.println(o);
+		
+		
 	}
 
 	@Override

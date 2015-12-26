@@ -21,7 +21,7 @@ public class GameStateManager {
 		Menu, Test
 	}
 	
-	GameState currentState;
+	public GameState currentState;
 	
 	public void setState(State s){
 		switch(s){

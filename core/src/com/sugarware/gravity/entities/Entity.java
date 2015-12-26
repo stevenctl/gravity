@@ -15,8 +15,8 @@ public abstract class Entity {
 	public Directions myDir;
 	int width;
 	int height;
-	int pwidth; 
-	int pheight; 
+	public int pwidth; 
+	public int pheight; 
 	
 	public Entity(PlayState gs){
 		this.gs = gs;
@@ -92,5 +92,9 @@ public abstract class Entity {
 	
 	public abstract void activate();
 	
+	public void destroy(){
+		gs.world.destroyBody(this.body);
+		
+	}
 	
 }

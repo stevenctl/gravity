@@ -2,6 +2,7 @@ package com.sugarware.gravity;
 
 import java.util.Scanner;
 
+import com.badlogic.gdx.Gdx;
 import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
@@ -45,6 +46,11 @@ public class Console implements Runnable{
 						s.mySwitchDir = d2;
 						((PlayState)GameStateManager.getInstance().currentState).entities.add(s);
 					}
+				}
+			}else if(parts.length == 1){
+				if(parts[0].equals("smokeweed")){
+					Gdx.audio.newMusic(Gdx.files.internal("snoop.mp3")).play();
+					GdxGame.smokeweed = true;
 				}
 			}
 			

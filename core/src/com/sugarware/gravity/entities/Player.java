@@ -3,7 +3,10 @@ package com.sugarware.gravity.entities;
 
 import java.text.DecimalFormat;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -42,7 +45,7 @@ public class Player extends Entity {
 	static final int jump = 1;
 	static final int flip = 2;
 	
-	public Player(PlayState gs,float x, float y){
+	public Player(final PlayState gs,float x, float y){
 		super(gs);
 		anim = new Animation("cybertrent.png",40,40,new int[]{4,1,3},false);
 		anim.setDelay(100);
@@ -80,13 +83,23 @@ public class Player extends Entity {
 		impulse = new Vector2();
 		
 		hud = new HUD(){
+			TextureRegion glass, arrow;
+			public void init(){
+				glass = new TextureRegion(new Texture(Gdx.files.internal("glass.png")));
+				arrow = new TextureRegion(new Texture(Gdx.files.internal("arrow.png")));
+				
+			}
+			
 			@Override
 			public void draw() {
 				g.begin();
 				if(colitem instanceof Switch){
 					if(!((Switch)colitem).activated)
-					bmf.draw(g,"Press E", right - 80, top - 20);
+					bmf.draw(g,"Press E",10, top - bmf.getLineHeight());
 				}
+				g.draw(arrow, right - right / 9, top - right / 9,right / 18, right / 18, right / 9,right / 9,1,1,(float) (180 * gs.gTheta / Math.PI) + 90 );
+				g.draw(glass, right - right / 9, top - right / 9, right / 9,right / 9);
+				
 				g.end();
 			}
 		};
@@ -268,8 +281,8 @@ public class Player extends Entity {
 			
 		
 		case Keys.SPACE:
-			if(isGrounded() || (jumping && !hasDoubleJumped)){
-				if(jumping && !hasDoubleJumped)hasDoubleJumped = true;
+			if(isGrounded() || ( !hasDoubleJumped)){
+				if(!isGrounded() && !hasDoubleJumped)hasDoubleJumped = true;
 				if(gs.getGravityDirection() == Directions.Up ||
 						gs.getGravityDirection() == Directions.Down){
 				jumpVector.set(0,  getJumpVel(jumpPower) );

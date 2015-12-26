@@ -20,6 +20,7 @@ import com.badlogic.gdx.math.Vector3;
 
 public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	
+	public static boolean smokeweed;
 	SpriteBatch g;
 	private ExecutorService executor;
 	
@@ -38,6 +39,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		
 		GameStateManager.getInstance().tick(g);
 		if(record){
 			if(ee){
@@ -49,6 +51,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 			
 			
 		}
+		//Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
 	@Override

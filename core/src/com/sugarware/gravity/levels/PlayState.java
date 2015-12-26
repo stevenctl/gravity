@@ -9,8 +9,9 @@ import com.sugarware.gravity.Angles;
 import com.sugarware.gravity.entities.Entity;
 import com.sugarware.gravity.entities.MapBodyBuilder;
 import com.sugarware.gravity.entities.Player;
+import com.sugarware.gravity.entities.SpaceJunk;
 
-public abstract class PlayState extends GameState{
+public abstract class PlayState extends IngameState{
 	
 	boolean loaded = false;
 	Player p;
@@ -20,8 +21,13 @@ public abstract class PlayState extends GameState{
 		entities = new ArrayList<Entity>();
 		
 	}
-
 	
+	public void init(){
+		super.init();
+		loaded = false;
+		entities.clear();
+		
+	}
 	
 	public void update(){
 		if(!loaded){
@@ -34,11 +40,10 @@ public abstract class PlayState extends GameState{
 		
 		if(cam.position.x - cam.viewportWidth / 2 < 0){
 			cam.position.x = cam.viewportWidth / 2;	
-		}else if(cam.position.x + cam.viewportHeight / 2 > w / 8){
-			cam.position.x = w / 8 - cam.viewportHeight / 2;
+		}else if(cam.position.x + cam.viewportWidth / 2 > w / 8){
+			cam.position.x = (w / 8) - cam.viewportWidth / 2;
 		}
-		
-		
+//		
 		if(cam.position.y - cam.viewportHeight / 2 < 0){
 			cam.position.y = cam.viewportHeight / 2;	
 		}else if(cam.position.y + cam.viewportHeight / 2 > h / 8){
@@ -105,7 +110,13 @@ public abstract class PlayState extends GameState{
 		case Keys.NUM_4:
 			gVal = 0;
 			break;
-		
+		case Keys.NUM_0:
+			SpaceJunk sj = new SpaceJunk(this,p.body.getPosition().x, p.body.getPosition().y,
+					"manbearpig.jpg",459,348,new int[]{1});
+			sj.pwidth = 12;
+			sj.pheight = 5;
+			entities.add(sj);
+			break;
 		}
 		updateGravity();
 		
@@ -151,9 +162,21 @@ public abstract class PlayState extends GameState{
 		p.hud.draw();
 	}
 	
+	
+	
+	public void draw1(SpriteBatch g){
+		for(Entity e : entities){
+			if(e instanceof SpaceJunk)e.draw(g);
+		}
+	}
+	
 	public void draw2(SpriteBatch g) {
 		
-		for(Entity e : entities)e.draw(g);
+		for(Entity e : entities){
+			if(e instanceof SpaceJunk)continue;//Things already drawn
+			
+			e.draw(g);
+		}
 		p.draw(g);
 		
 		

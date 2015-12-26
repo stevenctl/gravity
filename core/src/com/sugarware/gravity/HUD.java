@@ -14,7 +14,9 @@ public abstract class HUD {
 		top = Gdx.graphics.getHeight();
 		right = Gdx.graphics.getWidth();
 		bmf = new BitmapFont();
+		init();
 	}
 	
+	public void init(){}
 	public abstract void draw();
 }

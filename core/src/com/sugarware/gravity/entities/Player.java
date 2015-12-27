@@ -18,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
 import com.sugarware.gravity.HUD;
 import com.sugarware.gravity.MathUtils;
+import com.sugarware.gravity.ResourceManager;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
 public class Player extends Entity {
@@ -44,11 +45,23 @@ public class Player extends Entity {
 	static final int run = 0;
 	static final int jump = 1;
 	static final int flip = 2;
+	static final String spritePath = "cybertrent.png";
+	
 	
 	public Player(final PlayState gs,float x, float y){
 		super(gs);
-		anim = new Animation("cybertrent.png",40,40,new int[]{4,1,3},false);
-		anim.setDelay(100);
+		
+		
+		
+		if(ResourceManager.sprites.containsKey(spritePath)){
+			anim = ResourceManager.sprites.get(spritePath).clone();
+		}else{
+			anim = new Animation(spritePath,40,40,new int[]{4,1,3},false);
+			anim.setDelay(100);
+			ResourceManager.sprites.put(spritePath, anim);
+		}
+		
+		
 		setGravityDir(gs.getGravityDirection());
 		width = height = 2;
 		pwidth = pheight = 4;

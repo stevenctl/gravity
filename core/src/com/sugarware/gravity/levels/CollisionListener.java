@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import com.sugarware.gravity.entities.Door;
 import com.sugarware.gravity.entities.Entity;
 import com.sugarware.gravity.entities.Player;
 
@@ -32,8 +33,11 @@ public class CollisionListener implements ContactListener {
 		
 		
 		if(o instanceof Entity){
-			if(o != p)
+			if(o != p){
+				if(o instanceof Door)((Door) o).open();
 				p.colitem = o;
+			}
+				
 		}
 		//if(!(o instanceof Player))System.out.println(o);
 		
@@ -58,8 +62,11 @@ public class CollisionListener implements ContactListener {
 		
 		if(p != null){
 			if(p.colitem != null)
-				if(o == p.colitem)
+				if(o == p.colitem){
+					if(o instanceof Door)((Door) o).close();
 					p.colitem = null;
+				}
+					
 		}
 	}
 

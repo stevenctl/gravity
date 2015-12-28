@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -32,7 +33,7 @@ public class Player extends Entity {
 	final float damp1 = 5.0f;
 	final float damp2 = 1.0f;
 	Vector2 impulse;
-	
+	boolean freeze = false;
 	final float jumpPower = 40;
 	public Fixture playerSensorFixture;
 	Vector2 sensorPos;
@@ -46,7 +47,7 @@ public class Player extends Entity {
 	static final int jump = 1;
 	static final int flip = 2;
 	static final String spritePath = "cybertrent.png";
-	
+	Vector3 transVec;
 	
 	public Player(final PlayState gs,float x, float y){
 		super(gs);
@@ -61,6 +62,7 @@ public class Player extends Entity {
 			ResourceManager.sprites.put(spritePath, anim);
 		}
 		
+		facingRight = true;
 		
 		setGravityDir(gs.getGravityDirection());
 		width = height = 2;
@@ -94,21 +96,26 @@ public class Player extends Entity {
 		
 		shape.dispose();
 		impulse = new Vector2();
-		
+		 transVec = new Vector3();
 		hud = new HUD(){
-			TextureRegion glass, arrow;
+			TextureRegion glass, arrow, ekey;
 			public void init(){
 				glass = new TextureRegion(new Texture(Gdx.files.internal("glass.png")));
 				arrow = new TextureRegion(new Texture(Gdx.files.internal("arrow.png")));
-				
+				ekey = new TextureRegion(new Texture(Gdx.files.internal("ekey.png")));	
 			}
 			
 			@Override
 			public void draw() {
 				g.begin();
-				if(colitem instanceof Switch){
-					if(!((Switch)colitem).activated)
-					bmf.draw(g,"Press E",10, top - bmf.getLineHeight());
+				if(colitem instanceof Entity){
+					if( ((Entity) colitem).canActivate()){
+						bmf.draw(g,"Press E",10, top - bmf.getLineHeight());
+						transVec.set(body.getPosition(),0);
+						transVec = Player.this.gs.cam.project(transVec);
+						float x = transVec.x; float y = transVec.y;
+						g.draw(ekey, x - ekey.getRegionWidth() / 2, y - ekey.getRegionHeight() / 2);
+					}
 				}
 				g.draw(arrow, right - right / 9, top - right / 9,right / 18, right / 18, right / 9,right / 9,1,1,(float) (180 * gs.gTheta / Math.PI) + 90 );
 				g.draw(glass, right - right / 9, top - right / 9, right / 9,right / 9);
@@ -214,7 +221,7 @@ public class Player extends Entity {
 		
 		updateAnimation();
 	
-		
+		if(freeze)body.setLinearVelocity(0, 0);
 	}
 	
 	private void updateAnimation() {
@@ -288,8 +295,15 @@ public class Player extends Entity {
 			break;
 			
 		case Keys.E: 
-			if(colitem instanceof Entity)
-							((Entity)colitem).activate();
+			if(colitem instanceof Entity){
+				if(((Entity)colitem).canActivate()){
+					((Entity)colitem).activate();
+					if(colitem instanceof Door)freeze = true;
+				}
+			
+			}
+							
+			
 			break;
 			
 		
@@ -309,6 +323,7 @@ public class Player extends Entity {
 			
 				body.setLinearVelocity(jumpVector);
 			}
+			break;
 		}
 	}
 	
@@ -400,6 +415,11 @@ public class Player extends Entity {
 	public void activate() {
 		//No action
 		
+	}
+
+	@Override
+	public boolean canActivate() {
+		return false;
 	}
 	
 }

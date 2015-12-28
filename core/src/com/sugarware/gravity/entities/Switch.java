@@ -49,7 +49,11 @@ public abstract class Switch extends Entity {
 	
 	
 	
-	
+	@Override
+	public boolean canActivate() {
+		// TODO Auto-generated method stub
+		return !activated;
+	}
 
 
 

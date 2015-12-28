@@ -61,12 +61,10 @@ public class GameStateManager {
 			transRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 			transRenderer.end();
 			if(alpha == 1){
-				System.err.println(tTime);
 				setState(destination);
 			}
 			Gdx.gl.glDisable(GL20.GL_BLEND);
 			tTime--;
-			System.out.println(tTime);
 			if(tTime <= 0){
 				transRenderer.dispose();
 				transRenderer = null;

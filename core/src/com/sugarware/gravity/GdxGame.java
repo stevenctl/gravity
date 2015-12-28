@@ -33,67 +33,20 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		new Thread(new Console(this)).start();
 	}
 
-	boolean record = false;
-	boolean ee = false;
+	
 	@Override
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
 		GameStateManager.getInstance().tick(g);
-		if(record){
-			if(ee){
-				ScreenShot worker = new ScreenShot();
-				worker.prepare();			
-				executor.execute(worker);	
-			}
-			ee = !ee;
-			
-			
-		}
+	
 		//Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
 	@Override
 	public boolean keyDown(int keycode) {
-		if(keycode == Keys.R){record = !record;
-		if(record == false){
-			try {
-				File dir = new File("C:\\tmp");
-				File[] files = dir.listFiles();
-				if(files == null){
-					System.err.println("Couldn't out gif");
-					return false;
-				}
-				BufferedImage firstImage = ImageIO.read(files[0]);
-				File outFile = new File("gameplay.gif");
-				int n = 1;
-				while(outFile.exists()){
-					outFile = new File("gameplay" + (n++) + ".gif");
-				}
-				ImageOutputStream output = 
-					      new FileImageOutputStream(outFile);
-				
-				
-				GifSequenceWriter writer = 
-					      new GifSequenceWriter(output, firstImage.getType(), 1, false);
-				writer.writeToSequence(firstImage);
-			    for(int i=1; i< files.length-1; i++) {
-			      BufferedImage nextImage = ImageIO.read(files[i]);
-			      files[i].delete();
-			      writer.writeToSequence(nextImage);
-			    }
-
-			    writer.close();
-			    output.close();
-				
-			} catch (IOException e) {
-				
-				e.printStackTrace();
-			}
-		}
 		
-		}
 		GameStateManager.getInstance().keyDown(keycode);
 		return false;
 	}

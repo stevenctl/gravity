@@ -1,4 +1,7 @@
 package com.sugarware.gravity.entities;
+
+
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
@@ -19,10 +22,12 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.sugarware.gravity.CollisionBits;
 import com.sugarware.gravity.Console;
-import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.levels.PlayState;
-import com.sugarware.gravity.levels.PlayState.Directions;
+
+import box2dLight.ConeLight;
+import box2dLight.RayHandler;
 
 public class MapBodyBuilder {
 
@@ -133,26 +138,99 @@ public class MapBodyBuilder {
     private static Vector2 coords = new Vector2();
 	public static void buildEntities(PlayState gs) {
 		  MapObjects objects = gs.tilemap.getLayers().get("Entities").getObjects();
-		 
+		  RayHandler rh = gs.rayHandler;
 		  for(MapObject object : objects) {
 			  if(object.getName() !=null){
 				  String n = object.getName();
-				 
+				  String[] pts = n.split(" ");
+				  
 				  if(object instanceof RectangleMapObject){
+					  coords = rectToCoords(coords,((RectangleMapObject) object).getRectangle());
 					
 					  
-				  
-				  
-					if(n.split(" ")[0].equals("gswitch")){
-						 coords = rectToCoords(coords,((RectangleMapObject) object).getRectangle());
+					  
+					if(pts[0].equals("gswitch")){
+						
 								 Console.cmd("add switch " +
 										 		coords.x +" " + coords.y + " " +
-										 		n.split(" ")[1] + " " + n.split(" ")[2]);			
+										 		pts[1] + " " + pts[2]);			
+								 continue;
 				  	}
+				 
+				  
+				  
+					if(pts[0].equals("light")){
+						//int nRays = Integer.parseInt(pts[1]);
+					
+						int dist = Integer.parseInt(pts[1]);
+						Color col;
+						int dir;
+						int deg;
+						if(pts.length >= 6){
+							 col = colFromString(pts[2] + " " + pts[3] + " " + 
+									                  pts[4] + " " +  "0.8" );
+							 
+							 dir = Integer.parseInt(pts[6]);
+							 deg = Integer.parseInt(pts[7]);
+						}else{
+							 col = colFromString(pts[2]);
+							 dir = Integer.parseInt(pts[3]);
+							 deg = Integer.parseInt(pts[4]);
+						}
+						
+						ConeLight light = new ConeLight(rh, 150, col, dist, (int)coords.x, (int)coords.y, 270, 30);
+						light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
+						continue;
+						
+					}
+					
+				  
+				  
+				  
+				  
+				  
+				  
 				  }
+				  
+				  
+				  
+				  
+				  
 			  }
 		  }
-		 // System.out.println("Loaded "  + objects.getCount() + " things");
+		 
 		
 	}
+
+
+	private static Color colFromString(String string) {
+		if(string.equalsIgnoreCase("red")){
+			return Color.RED;
+		}else if(string.equalsIgnoreCase("blue")){
+			return Color.BLUE;
+		}else if(string.equalsIgnoreCase("white")){
+			return Color.WHITE;
+		}else if(string.equalsIgnoreCase("green")){
+			return Color.GREEN;
+		}else if(string.equalsIgnoreCase("black")){
+			return Color.BLACK;
+		}else if(string.equalsIgnoreCase("orange")){
+			return Color.ORANGE;
+		}else if(string.equalsIgnoreCase("yellow")){
+			return Color.YELLOW;
+		}else if(string.equalsIgnoreCase("purple")){
+			return Color.PURPLE;
+		}else if(string.split(" ").length == 4){
+			String[] pts = string.split(" ");
+			float r = Float.parseFloat(pts[0]),
+				  g = Float.parseFloat(pts[1]),
+				  b = Float.parseFloat(pts[2]),
+				  a = Float.parseFloat(pts[3]);
+			return new Color(r, g, b, a);
+		}
+		return null;
+	}
+
+
+	
 }

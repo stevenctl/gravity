@@ -1,6 +1,7 @@
 package com.sugarware.gravity.levels;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.MapProperties;
@@ -11,6 +12,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.sugarware.gravity.entities.MapBodyBuilder;
+
+import box2dLight.RayHandler;
 
 public abstract class IngameState extends GameState {
 	
@@ -26,7 +29,7 @@ public abstract class IngameState extends GameState {
 	
 	public TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
-	
+	public RayHandler rayHandler;
 	public IngameState(String map_path, float g_theta, float g_val){
 		gVector = new Vector2();
 		gTheta = g_theta;
@@ -49,8 +52,11 @@ public abstract class IngameState extends GameState {
 		if(world != null)world.dispose();
 		world = new World(gVector, false);
 		world.setContactListener(new CollisionListener());
-		MapBodyBuilder.buildShapes(tilemap, world);
+		rayHandler = new RayHandler(world);
+		rayHandler.setAmbientLight(0.0f,0.0f,0.0f, 0.55f);
 		
+		MapBodyBuilder.buildShapes(tilemap, world);
+	
 	}
 		
 	
@@ -89,7 +95,7 @@ public abstract class IngameState extends GameState {
 		mapRenderer.setView(cam);
 		mapRenderer.render(frontLayers);
 		toggleMapCam();
-		
+		rayHandler.updateAndRender();
 		if(renderer == null)renderer = new Box2DDebugRenderer();
 		
 		if(debugCollisions)renderer.render(world, cam.combined);
@@ -145,7 +151,7 @@ public abstract class IngameState extends GameState {
 	 * 
 	 */
 	public abstract void draw2(SpriteBatch g);
-	
+	 
 	
 	protected void updateGravity(){
 		float xgrav = (float) (Math.cos(gTheta) * gVal);

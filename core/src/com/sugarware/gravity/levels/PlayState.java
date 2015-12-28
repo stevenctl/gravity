@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.CollisionBits;
 import com.sugarware.gravity.entities.Entity;
 import com.sugarware.gravity.entities.MapBodyBuilder;
 import com.sugarware.gravity.entities.Player;
@@ -32,10 +33,16 @@ public abstract class PlayState extends IngameState{
 	public void update(){
 		if(!loaded){
 			load();
+			p.setBits(CollisionBits.CATEGORY_ENTITY, CollisionBits.MASK_ENTITY);
 			loaded = true;
 		}
 		p.update();
-		for(Entity e : entities)e.update();
+		for(Entity e : entities){
+			e.update();
+			if(!e.bitsSet){
+				e.setBits(CollisionBits.CATEGORY_ENTITY, CollisionBits.MASK_ENTITY);
+			}
+		}
 		cam.position.set(p.body.getPosition().x, p.body.getPosition().y, 0);
 		
 		if(cam.position.x - cam.viewportWidth / 2 < 0){

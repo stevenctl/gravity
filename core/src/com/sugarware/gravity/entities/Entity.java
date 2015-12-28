@@ -2,6 +2,8 @@ package com.sugarware.gravity.entities;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
@@ -17,7 +19,8 @@ public abstract class Entity {
 	int height;
 	public int pwidth; 
 	public int pheight; 
-	
+	public abstract boolean canActivate();
+	public boolean bitsSet = false;
 	public Entity(PlayState gs){
 		this.gs = gs;
 
@@ -95,6 +98,15 @@ public abstract class Entity {
 	public void destroy(){
 		gs.world.destroyBody(this.body);
 		
+	}
+	
+	public void setBits(short cat, short mask){
+		Filter filter = new Filter();
+		filter.categoryBits = cat;
+		filter.maskBits = mask;
+		for(Fixture f : body.getFixtureList()){
+			f.setFilterData(filter);
+		}
 	}
 	
 }

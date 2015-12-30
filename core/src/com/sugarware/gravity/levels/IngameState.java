@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -23,7 +25,8 @@ public abstract class IngameState extends GameState {
 	//Constants
 	static final float TIME_STEP = 1/60f;
 	static final int VELOCITY_ITERATIONS = 6, POSITION_ITERATIONS = 2;
-
+	//ShapeRenderer ambientRenderer;
+	//Color ambient;
 	public float w, h;
 	public World world;
 	private Vector2 gVector;
@@ -37,7 +40,12 @@ public abstract class IngameState extends GameState {
 		gVector = new Vector2();
 		gTheta = g_theta;
 		gVal = g_val;
+		//ambientRenderer = new ShapeRenderer();
+
+		
+		//ambient = new Color(0.0f,0.0f,0.001f, 0.999f);
 		cam = new OrthographicCamera();
+		
 		updateGravity();
 		
 		fbo = new FrameBuffer( Format.RGBA4444,Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
@@ -56,8 +64,8 @@ public abstract class IngameState extends GameState {
 		world = new World(gVector, false);
 		world.setContactListener(new CollisionListener());
 		rayHandler = new RayHandler(world);
-		rayHandler.setAmbientLight(0.0f,0.0f,0.0f, 0.55f);
-		rayHandler.setLightMapRendering(false);
+		
+	//	rayHandler.setLightMapRendering(false);
 		MapBodyBuilder.buildShapes(tilemap, world);
 	
 	}
@@ -106,8 +114,21 @@ public abstract class IngameState extends GameState {
 		tbatch.begin();
 		
 		tbatch.draw(fbo.getColorBufferTexture(), 0, Gdx.graphics.getHeight()  , Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
-		tbatch.draw(rayHandler.getLightMapTexture(), 0, Gdx.graphics.getHeight()  , Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
 		tbatch.end();
+		
+	//	Gdx.gl.glEnable(GL20.GL_BLEND);
+	//	ambientRenderer.begin(ShapeType.Filled);
+	//	ambientRenderer.setColor(ambient);
+		//ambientRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		//ambientRenderer.end();
+		
+		tbatch.begin();
+		tbatch.draw(rayHandler.getLightMapTexture(), 0, Gdx.graphics.getHeight()  , Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		
+		tbatch.draw(rayHandler.getLightMapTexture(), 0, Gdx.graphics.getHeight() / 8  , Gdx.graphics.getWidth() / 8, -Gdx.graphics.getHeight() / 8);
+		tbatch.end();
+		
+		
 		
 		if(renderer == null)renderer = new Box2DDebugRenderer();
 		

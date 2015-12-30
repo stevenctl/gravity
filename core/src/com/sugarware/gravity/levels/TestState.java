@@ -89,6 +89,7 @@ public class TestState extends PlayState {
 		rayHandler.setCombinedMatrix(cam);
 		
 		rayHandler.updateAndRender();
+		p.hud.draw();
 		testBatch.begin();
 		if(GdxGame.smokeweed)testBatch.draw(snoop.getImage(), 0,100, 100,-100);
 		testBatch.end();
@@ -128,6 +129,8 @@ public class TestState extends PlayState {
 					" Look at all this dummy text. It's so dumb. It also wraps perfectly."+
 					" Look at all this dummy text. It's so dumb. It also wraps perfectly."+
 					" Look at all this dummy text. It's so dumb. It also wraps perfectly." );
+		}else if (k == Keys.NUM_9){
+			//ambient = new Color(0.01f, 0.0f, 0.0f, 0.7f);
 		}
 	}
 

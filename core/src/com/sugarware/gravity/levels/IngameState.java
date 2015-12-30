@@ -2,8 +2,11 @@ package com.sugarware.gravity.levels;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -20,13 +23,13 @@ public abstract class IngameState extends GameState {
 	//Constants
 	static final float TIME_STEP = 1/60f;
 	static final int VELOCITY_ITERATIONS = 6, POSITION_ITERATIONS = 2;
-	
+
 	public float w, h;
 	public World world;
 	private Vector2 gVector;
 	public float gTheta;
 	public float gVal;
-	
+	private FrameBuffer fbo;
 	public TiledMap tilemap;
 	private OrthogonalTiledMapRenderer mapRenderer;
 	public RayHandler rayHandler;
@@ -37,7 +40,7 @@ public abstract class IngameState extends GameState {
 		cam = new OrthographicCamera();
 		updateGravity();
 		
-		
+		fbo = new FrameBuffer( Format.RGBA4444,Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), false);
 		
 		tilemap = new TmxMapLoader().load(map_path);
 		
@@ -54,7 +57,7 @@ public abstract class IngameState extends GameState {
 		world.setContactListener(new CollisionListener());
 		rayHandler = new RayHandler(world);
 		rayHandler.setAmbientLight(0.0f,0.0f,0.0f, 0.55f);
-		
+		rayHandler.setLightMapRendering(false);
 		MapBodyBuilder.buildShapes(tilemap, world);
 	
 	}
@@ -72,6 +75,7 @@ public abstract class IngameState extends GameState {
 	Vector2 op;
 	public boolean debugCollisions;
 	
+	SpriteBatch tbatch = new SpriteBatch();
 	public void draw(SpriteBatch g){
 		
 		if(mapRenderer == null){
@@ -80,7 +84,9 @@ public abstract class IngameState extends GameState {
 		//mapRenderer.setView(cam);
 		
 		
-		
+		fbo.begin();
+		Gdx.gl.glClearColor(0, 0, 0, 0);
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		g.begin();
 		draw1(g);
 		g.end();
@@ -96,6 +102,13 @@ public abstract class IngameState extends GameState {
 		mapRenderer.render(frontLayers);
 		toggleMapCam();
 		rayHandler.updateAndRender();
+		fbo.end();
+		tbatch.begin();
+		
+		tbatch.draw(fbo.getColorBufferTexture(), 0, Gdx.graphics.getHeight()  , Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		tbatch.draw(rayHandler.getLightMapTexture(), 0, Gdx.graphics.getHeight()  , Gdx.graphics.getWidth(), -Gdx.graphics.getHeight());
+		tbatch.end();
+		
 		if(renderer == null)renderer = new Box2DDebugRenderer();
 		
 		if(debugCollisions)renderer.render(world, cam.combined);

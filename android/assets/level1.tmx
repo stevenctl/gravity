@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="92">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="101">
  <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32">
   <image source="tset.png" width="192" height="320"/>
  </tileset>
@@ -24,23 +24,21 @@
   </data>
  </layer>
  <objectgroup name="Entities">
-  <object id="57" name="gswitch down up" x="161" y="144"/>
-  <object id="60" name="gswitch up down" x="545" y="45"/>
+  <object id="57" name="gswitch down up" x="176" y="143.5"/>
   <object id="62" name="gswitch down right" x="837.333" y="141.333"/>
   <object id="64" name="gswitch down down" x="785" y="459"/>
-  <object id="79" name="light 30 0.8 0.8 1 0.4 270 30" x="80.8182" y="31.9091"/>
-  <object id="80" name="light 40 0.8 0.8 1 0.4 270 30" x="208.333" y="30.3333"/>
-  <object id="81" name="light 40 0.8 0.8 1 0.4 270 30" x="351.5" y="29"/>
-  <object id="82" name="light 10 0.8 0.8 1 0.4 270 30 dir = Integer.parseInt(pts[5]);&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9; deg = Integer.parseInt(pts[6]);" x="454.333" y="32.3333"/>
-  <object id="83" name="light 10 0.8 0.8 1 0.4 270 30 " x="617.333" y="30"/>
-  <object id="84" name="light 10 0.8 0.8 1 0.4 270 30" x="760.667" y="29.3333"/>
-  <object id="85" name="light 10 0.8 0.8 1 0.4 180 30 " x="960.667" y="94.3333"/>
-  <object id="86" name="light 10 0.8 0.8 1 0.4 180 30" x="958.667" y="290.333"/>
-  <object id="87" name="light 10 0.8 0.8 1 0.4 270 30 dir = Integer.parseInt(pts[5]);&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9; deg = Integer.parseInt(pts[6]);" x="739.333" y="352"/>
-  <object id="88" name="light 10 0.8 0.8 1 0.4 270 30 dir = Integer.parseInt(pts[5]);&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9; deg = Integer.parseInt(pts[6]);" x="606" y="349.333"/>
-  <object id="89" name="light 10 0.8 0.8 1 0.4 270 30 dir = Integer.parseInt(pts[5]);&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9; deg = Integer.parseInt(pts[6]);" x="246" y="351.667"/>
-  <object id="90" name="light 10 0.8 0.8 1 0.4 270 30 dir = Integer.parseInt(pts[5]);&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9; deg = Integer.parseInt(pts[6]);" x="141.167" y="348.333"/>
-  <object id="91" name="light 10 0.8 0.8 1 0.4 270 30 dir = Integer.parseInt(pts[5]);&#10;&#9;&#9;&#9;&#9;&#9;&#9;&#9; deg = Integer.parseInt(pts[6]);" x="29.1667" y="347.5"/>
+  <object id="79" name="light 30 0.8 0.8 1 0.4 270 30" x="128" y="35"/>
+  <object id="80" name="light 40 0.8 0.8 1 0.4 270 30" x="224" y="32"/>
+  <object id="81" name="light 40 0.8 0.8 1 0.4 270 30" x="415.5" y="32"/>
+  <object id="92" name="light 30 0.8 0.8 1 0.4 270 30" x="33.3333" y="349.167"/>
+  <object id="93" name="light 30 0.8 0.8 1 0.4 270 30" x="128" y="352"/>
+  <object id="94" name="light 30 0.8 0.8 1 0.4 270 30" x="256" y="352"/>
+  <object id="95" name="light 30 0.8 0.8 1 0.4 270 30" x="537.333" y="31.5"/>
+  <object id="96" name="light 30 0.8 0.8 1 0.4 270 30" x="704" y="32"/>
+  <object id="97" name="light 30 0.8 0.8 1 0.4 270 30" x="832" y="32"/>
+  <object id="98" name="light 30 0.8 0.8 1 0.4 270 30" x="576" y="352"/>
+  <object id="99" name="light 30 0.8 0.8 1 0.4 270 30" x="672" y="352"/>
+  <object id="100" name="light 30 0.8 0.8 1 0.4 270 30" x="768" y="352"/>
  </objectgroup>
  <objectgroup name="Collisions">
   <object id="43" x="512" y="160" width="352" height="192"/>

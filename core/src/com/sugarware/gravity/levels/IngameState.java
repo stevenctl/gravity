@@ -64,7 +64,7 @@ public abstract class IngameState extends GameState {
 		world = new World(gVector, false);
 		world.setContactListener(new CollisionListener());
 		rayHandler = new RayHandler(world);
-		
+		rayHandler.setAmbientLight(0, 0, 0.08f, 0.3f);
 	//	rayHandler.setLightMapRendering(false);
 		MapBodyBuilder.buildShapes(tilemap, world);
 	

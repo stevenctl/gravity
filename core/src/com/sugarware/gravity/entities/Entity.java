@@ -15,10 +15,7 @@ public abstract class Entity {
 	boolean facingRight;
 	PlayState gs;
 	public Directions myDir;
-	int width;
-	int height;
-	public int pwidth; 
-	public int pheight; 
+	public float width, height, pwidth, pheight; 
 	public abstract boolean canActivate();
 	public boolean bitsSet = false;
 	public Entity(PlayState gs){

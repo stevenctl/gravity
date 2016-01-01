@@ -58,7 +58,7 @@ public abstract class PlayState extends IngameState{
 		}
 		
 		
-		
+		if(p.body.getPosition().y < -1)init();
 		
 		
 		cam.update();

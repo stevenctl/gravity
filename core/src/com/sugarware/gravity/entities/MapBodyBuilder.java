@@ -24,6 +24,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.sugarware.gravity.CollisionBits;
 import com.sugarware.gravity.Console;
+import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.levels.PlayState;
 
 import box2dLight.ConeLight;
@@ -146,8 +147,19 @@ public class MapBodyBuilder {
 				  
 				  if(object instanceof RectangleMapObject){
 					  coords = rectToCoords(coords,((RectangleMapObject) object).getRectangle());
-					
+					 float w= ((RectangleMapObject) object).getRectangle().getWidth();
+					 float h= ((RectangleMapObject) object).getRectangle().getHeight();
+					 
 					  
+						if(pts[0].equals("box")){
+							
+							Box b = new Box((PlayState) GameStateManager.getInstance().currentState, coords.x, coords.y, w/ppt,h/ppt
+									);
+							((PlayState)GameStateManager.getInstance().currentState).entities.add(b);
+							continue;
+						}
+						  
+				
 					  
 					if(pts[0].equals("gswitch")){
 						
@@ -178,11 +190,11 @@ public class MapBodyBuilder {
 							 deg = Integer.parseInt(pts[4]);
 						}
 						
-						ConeLight light = new ConeLight(rh, 150, col, dist, (int)coords.x, (int)coords.y, 270, 30);
+						ConeLight light = new ConeLight(rh, 150, col, dist, (int)coords.x, (int)coords.y, dir, deg);
 						light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
 						continue;
 						
-					}
+					}}
 					
 				  
 				  
@@ -200,7 +212,7 @@ public class MapBodyBuilder {
 		  }
 		 
 		
-	}
+	
 
 
 	private static Color colFromString(String string) {

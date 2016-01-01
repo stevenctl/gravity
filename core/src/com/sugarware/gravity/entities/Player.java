@@ -80,7 +80,7 @@ public class Player extends Entity {
 		FixtureDef fdef = new FixtureDef();
 		fdef.shape = shape;
 		fdef.density = 1.0f;
-		fdef.friction = 0.0f;
+		fdef.friction = 0.00f;
 		body.setLinearDamping(damp2);
 		fdef.restitution = 0.1f;
 		body.createFixture(fdef);

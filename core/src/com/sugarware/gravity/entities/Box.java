@@ -1,5 +1,6 @@
 package com.sugarware.gravity.entities;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
@@ -46,6 +47,21 @@ public class Box extends Entity {
 		body.setFixedRotation(false);
 		body.setBullet(true);
 		shape.dispose();
+	}
+	
+	public void draw(SpriteBatch g){
+
+		g.setProjectionMatrix(gs.cam.combined);
+		g.draw(anim.getImage(),
+				body.getPosition().x - pwidth / 2 , body.getPosition().y - pheight / 2 ,
+				pwidth / 2   , pheight / 2   ,
+				  pwidth, pheight,
+				1f,1f, (float) (180 * body.getAngle() / Math.PI)
+				 
+				
+			);
+		
+		//g.draw(region, x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 	}
 
 	@Override

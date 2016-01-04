@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.entities.Animation;
 import com.sugarware.gravity.entities.Box;
+import com.sugarware.gravity.entities.Door;
+import com.sugarware.gravity.entities.DoorSwitch;
 import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
 
@@ -45,7 +48,13 @@ public class TestState extends PlayState {
 		p = new Player(this,15f, 10.02f);
 		entities.add(new Box(this,18,16));
 		entities.add(new Box(this,18,13));
+		Door door = new Door(this, 12.92f, 128f);
+		entities.add(new DoorSwitch(this, 211.3f, 105.7f, Directions.Up,door));
 		
+		door.setDestination(State.Level1);
+		door.lock();
+		door.setGravityDir(Directions.Up);
+		entities.add(door);
 
 	}
 

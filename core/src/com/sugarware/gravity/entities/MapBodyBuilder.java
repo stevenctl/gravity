@@ -153,7 +153,7 @@ public class MapBodyBuilder {
 					  
 						if(pts[0].equals("box")){
 							
-							Box b = new Box((PlayState) GameStateManager.getInstance().currentState, coords.x, coords.y, w/ppt,h/ppt
+							Box b = new Box((PlayState) GameStateManager.getInstance().currentState, coords.x, coords.y, w/ppt / 2,h/ppt / 2
 									);
 							((PlayState)GameStateManager.getInstance().currentState).entities.add(b);
 							continue;

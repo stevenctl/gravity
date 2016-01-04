@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.sugarware.gravity.levels.GameState;
+import com.sugarware.gravity.levels.Level1;
 import com.sugarware.gravity.levels.TestState;
 
 public class GameStateManager {
@@ -25,7 +26,7 @@ public class GameStateManager {
 	}
 	
 	public static enum State{
-		Menu, Test
+		Menu, Test, Level1
 	}
 	
 	public GameState currentState;
@@ -47,6 +48,8 @@ public class GameStateManager {
 			break;
 		case Test: currentState = new TestState();
 			break;
+		case Level1:
+			currentState = new Level1();
 		}
 	}
 	void tick(SpriteBatch g){		

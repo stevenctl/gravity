@@ -3,11 +3,11 @@ package com.sugarware.gravity.levels;
 import java.text.DecimalFormat;
 
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.entities.Animation;
@@ -17,7 +17,6 @@ import com.sugarware.gravity.entities.Hint;
 import com.sugarware.gravity.entities.Player;
 
 import box2dLight.PointLight;
-import box2dLight.RayHandler;
 
 public class Level1 extends PlayState {
 
@@ -48,7 +47,10 @@ public class Level1 extends PlayState {
 		p = new Player(this,15f, 82.01f);
 		
 		
-		entities.add(new Door(this, 8, 44f));
+		Door door = new Door(this, 8, 44f);
+		door.setDestination(State.Test);
+		entities.add(door);
+		
 		entities.add(new Hint(this, "Switches can change the direction of gravity.",8,82,true));
 		entities.add(new Hint(this, "Press space to jump. Press it again while in air for an extra boost.",117,41,true));
 	}

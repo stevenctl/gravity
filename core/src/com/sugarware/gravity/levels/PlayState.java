@@ -7,10 +7,12 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.sugarware.gravity.Angles;
 import com.sugarware.gravity.CollisionBits;
+import com.sugarware.gravity.entities.Door;
 import com.sugarware.gravity.entities.Entity;
 import com.sugarware.gravity.entities.MapBodyBuilder;
 import com.sugarware.gravity.entities.Player;
 import com.sugarware.gravity.entities.SpaceJunk;
+import com.sugarware.gravity.entities.Switch;
 
 public abstract class PlayState extends IngameState{
 	
@@ -56,9 +58,11 @@ public abstract class PlayState extends IngameState{
 		}else if(cam.position.y + cam.viewportHeight / 2 > h / 8){
 			cam.position.y = h / 8 - cam.viewportHeight / 2;
 		}
+		float px = p.body.getPosition().x;
+		float py = p.body.getPosition().y;
 		
+		if(py < -1 || py > h / 8 + 1 || px < -1 || px > w / 8 + 1)init();
 		
-		if(p.body.getPosition().y < -1)init();
 		
 		
 		cam.update();
@@ -178,9 +182,15 @@ public abstract class PlayState extends IngameState{
 	}
 	
 	public void draw2(SpriteBatch g) {
+		for(Entity e : entities){
+			if(e instanceof Door || e instanceof Switch){
+				e.draw(g);
+			}
+		}
+		
 		
 		for(Entity e : entities){
-			if(e instanceof SpaceJunk)continue;//Things already drawn
+			if(e instanceof SpaceJunk || e instanceof Door || e instanceof Switch)continue;//Things already drawn
 			
 			e.draw(g);
 		}

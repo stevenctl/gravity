@@ -298,7 +298,9 @@ public class Player extends Entity {
 			if(colitem instanceof Entity){
 				if(((Entity)colitem).canActivate()){
 					((Entity)colitem).activate();
-					if(colitem instanceof Door)freeze = true;
+					if(colitem instanceof Door){
+						if(!((Door)colitem).locked)freeze = true;
+					}
 				}
 			
 			}

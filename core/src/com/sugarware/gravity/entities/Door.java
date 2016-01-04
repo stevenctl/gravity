@@ -8,13 +8,14 @@ import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.ResourceManager;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
+import com.sugarware.gravity.levels.TextDisplay;
 
 public class Door extends Entity {
 
 	
 	static final String spritePath = "door.png";
 	public boolean activated = false, open = false;
-	
+	public boolean locked = false;
 	State destination = State.Test;
 	
 	public Door(PlayState gs, float x, float y) {
@@ -48,7 +49,7 @@ public class Door extends Entity {
 		
 	}
 
-	static final int active = 0, locked = 1, opened = 2;
+	static final int active = 0, lockd = 1, opened = 2;
 	@Override
 	public void update() {
 		 if(open){
@@ -58,17 +59,23 @@ public class Door extends Entity {
 			openTimer--;
 			if(openTimer < 0)open = true;
 		}else{
-			anim.setFrame(locked);
+			anim.setFrame(lockd);
 		}
 	}
 
 	int openTimer = 40;
 	@Override
 	public void activate() {
+		
+		if(locked){
+			TextDisplay.pleaseDraw("This door is locked.");
+			return;
+		}
 		if(open)GameStateManager.getInstance().setState(destination , true);
 	}
 	
 	public void open(){
+		if(!locked)
 		activated = true;	
 	}
 	
@@ -81,7 +88,24 @@ public class Door extends Entity {
 	@Override
 	public boolean canActivate() {
 		// TODO Auto-generated method stub
-		return open;
+		return open || locked ;
 	}
 
+	
+	public State getDestination(){
+		return destination;
+	}
+	
+	public void setDestination(State d){
+		destination = d;
+	}
+
+	public void lock() {
+		locked = true;
+		
+	}
+	
+	public void unlock(){
+		locked = false;
+	}
 }

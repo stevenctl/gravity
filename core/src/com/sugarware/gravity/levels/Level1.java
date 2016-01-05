@@ -30,7 +30,7 @@ public class Level1 extends PlayState {
 		super("level1.tmx", Angles.DOWN, 6 * 9.8f);
 		
 		
-		cam.viewportWidth = 60; cam.viewportHeight = 30;
+		cam.viewportWidth = 60; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;
 		cam.update();
 		bg = new TiledBackground("stars.jpg",256,256, false);
 		snoop = new Animation("snoop.png", 64, 64, new int[]{20});

@@ -12,10 +12,11 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	public static boolean smokeweed;
 	SpriteBatch g;
 	
-	
+	public static float aspect;
 	@Override
 	public void create () {
 		g = new SpriteBatch();
+		aspect = (float) Gdx.graphics.getHeight() /(float) Gdx.graphics.getWidth() ;
 		GameStateManager.getInstance();
 		Gdx.input.setInputProcessor(this);
 		

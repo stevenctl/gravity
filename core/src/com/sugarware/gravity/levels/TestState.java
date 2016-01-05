@@ -40,7 +40,8 @@ public class TestState extends PlayState {
 		super("intro.tmx", Angles.DOWN, 6 * 9.8f);
 		script = new Script(Gdx.files.internal("intro.ks").read());
 		
-		cam.viewportWidth = 56; cam.viewportHeight = 28;
+		cam.viewportWidth = 56; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;
+		System.out.println(GdxGame.aspect);
 		cam.update();
 		bg = new TiledBackground("stars.jpg",256,256, false);
 		snoop = new Animation("snoop.png", 64, 64, new int[]{20});

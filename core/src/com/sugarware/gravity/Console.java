@@ -15,16 +15,16 @@ public class Console implements Runnable{
 	public Console(GdxGame game){
 		g = game;
 	}
-	
+	boolean running = true;
 	@Override
 	public void run() {
 		Scanner sc = new Scanner(System.in);
-		while(true){
+		while(running){
 			String in = sc.nextLine();
 			if(!cmd(in))System.err.println("Invalid Input");
 
 		}
-		
+		sc.close();
 	}
 
 	

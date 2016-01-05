@@ -1,10 +1,9 @@
 package com.sugarware.gravity.entities;
 
 import com.badlogic.gdx.math.Vector2;
-import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.levels.PlayState;
-import com.sugarware.gravity.levels.TextDisplay;
 import com.sugarware.gravity.levels.PlayState.Directions;
+import com.sugarware.gravity.levels.TextDisplay;
 
 public class DoorSwitch extends Switch {
 

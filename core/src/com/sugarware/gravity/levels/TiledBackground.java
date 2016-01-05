@@ -53,9 +53,11 @@ public class TiledBackground {
 	
 		float x = paralax ? -  c.position.x * pMod: 0;
 		x-= xshift;
+		while(x > 0)x -= w;
 		while(x < c.position.x + c.viewportWidth / 2){
 			float y = paralax ? - c.position.y * pMod: 0 ;
 			y -= yshift;
+			while(y > 0)y -= h;
 			while(y < c.position.y + c.viewportHeight / 2){
 				g.draw(img, x, y, w, h);
 				y+= h;

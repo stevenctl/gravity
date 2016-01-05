@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="101">
  <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32">
-  <image source="tset.png" width="192" height="320"/>
+  <image source="tset.png" width="224" height="320"/>
  </tileset>
  <layer name="Tile Layer 4" width="31" height="25">
   <data encoding="base64" compression="zlib">
-   eJxjZ2Bg4ABi9gGgeYGYb4BokP3IABufkPtxqSdkDi+aGmx8Qu7HpZ6QOQMRz4Mlvkf9PervUX8TR8MALj4t/Q0DuPij8T3q71F/j/p71N+0pQHOEx4N
+   eJzjYGBg4ARijgGg+YFYYIBokP3IABufkPtxqSdkDj+aGmx8Qu7HpZ6QOQMRz4Mlvkf9PervUX8TR8MALj4t/Q0DuPij8T3q71F/j/p71N+0pQE3CSJY
   </data>
  </layer>
  <layer name="Tile Layer 3" width="31" height="25">
   <data encoding="base64" compression="zlib">
-   eJyzZmBgsB4AzM0wcIBr1O4BsZuVCMyGxwwWMs0A2c1NBOYh4H5yzBi1e+TZPVBg1O6BsZuSMg0G8JVtuPQTk0bxpXFizMGlf9TuUbtH7R7edgMAowwTyg==
+   eJxzYWBgcBkAzMMwcIB71O4BsZuVCMyGxwwWMs0A2c1DBOYl4H5yzBi1e+TZPVBg1O6BsZuSMg0G8JVtuPQTk0bxpXFizMGlf9TuUbtH7R7edgMAX6IV8w==
   </data>
  </layer>
  <layer name="Tile Layer 2" width="31" height="25">

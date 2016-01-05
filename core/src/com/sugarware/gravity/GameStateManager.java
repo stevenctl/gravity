@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.sugarware.gravity.levels.GameState;
 import com.sugarware.gravity.levels.Level1;
+import com.sugarware.gravity.levels.Level2;
 import com.sugarware.gravity.levels.TestState;
 
 public class GameStateManager {
@@ -26,7 +27,7 @@ public class GameStateManager {
 	}
 	
 	public static enum State{
-		Menu, Test, Level1
+		Menu, Test, Level1, Level2
 	}
 	
 	public GameState currentState;
@@ -50,6 +51,10 @@ public class GameStateManager {
 			break;
 		case Level1:
 			currentState = new Level1();
+			break;
+		case Level2:
+			currentState = new Level2();
+			break;
 		}
 	}
 	void tick(SpriteBatch g){		
@@ -84,6 +89,11 @@ public class GameStateManager {
 	
 	public void keyUp(int keycode) {
 		currentState.keyUp(keycode);
+	}
+
+	public boolean isTransitioning() {
+		// TODO Auto-generated method stub
+		return transition;
 	}
 	
 }

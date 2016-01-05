@@ -121,13 +121,7 @@ public abstract class PlayState extends IngameState{
 		case Keys.NUM_4:
 			gVal = 0;
 			break;
-		case Keys.NUM_0:
-			SpaceJunk sj = new SpaceJunk(this,p.body.getPosition().x, p.body.getPosition().y,
-					"manbearpig.jpg",459,348,new int[]{1});
-			sj.pwidth = 12;
-			sj.pheight = 5;
-			entities.add(sj);
-			break;
+			
 		}
 		updateGravity();
 		

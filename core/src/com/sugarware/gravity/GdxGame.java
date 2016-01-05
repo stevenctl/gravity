@@ -1,18 +1,7 @@
 package com.sugarware.gravity;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
-import javax.imageio.ImageIO;
-import javax.imageio.stream.FileImageOutputStream;
-import javax.imageio.stream.ImageOutputStream;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,14 +11,14 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	
 	public static boolean smokeweed;
 	SpriteBatch g;
-	private ExecutorService executor;
+	
 	
 	@Override
 	public void create () {
 		g = new SpriteBatch();
 		GameStateManager.getInstance();
 		Gdx.input.setInputProcessor(this);
-		executor = Executors.newFixedThreadPool(25);
+		
 		new Thread(new Console(this)).start();
 	}
 

@@ -11,32 +11,34 @@ import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.entities.Animation;
+import com.sugarware.gravity.entities.Box;
 import com.sugarware.gravity.entities.Door;
+import com.sugarware.gravity.entities.DoorSwitch;
 import com.sugarware.gravity.entities.GravSwitch;
-import com.sugarware.gravity.entities.Hint;
 import com.sugarware.gravity.entities.Player;
 
 import box2dLight.PointLight;
 
-public class Level1 extends PlayState {
+public class Level2 extends PlayState {
 
 
 	
 	Animation snoop;
-	TiledBackground bg;
+	//TiledBackground bg;
 	BitmapFont bmf;
 	PointLight pl;
-	public Level1() {
-		super("level1.tmx", Angles.DOWN, 6 * 9.8f);
+	public Level2() {
+		super("level2.tmx", Angles.DOWN, 6 * 9.8f);
 		
 		
 		cam.viewportWidth = 60; cam.viewportHeight = 30;
 		cam.update();
-		bg = new TiledBackground("stars.jpg",256,256, false);
+		//bg = new TiledBackground("stars.jpg",256,256, false);
 		snoop = new Animation("snoop.png", 64, 64, new int[]{20});
 		snoop.setDelay(100);
 		//cam.position.set(p.body.getPosition().x,p.body.getPosition().y,0);
 		//cam.update();
+		
 		TextDisplay.init();
 		init();
 	}
@@ -44,16 +46,18 @@ public class Level1 extends PlayState {
 	@Override
 	public void init(){
 		super.init();
-		p = new Player(this,15f, 82.01f);
-		
-		rayHandler.setAmbientLight(0.2f,0.2f,0.2f,0.0f);
-		Door door = new Door(this, 8, 44f);
-		door.setDestination(State.Level2);
+		this.setGravity(3 * (float)Math.PI / 2f);
+		p = new Player(this,15f, 10.02f);
+		entities.add(new Box(this,18,16));
+		entities.add(new Box(this,18,13));
+		Door door = new Door(this, 12.62f, 128f);
+		entities.add(new DoorSwitch(this, 211.75f, 105.7f, Directions.Up,door));
+		rayHandler.setAmbientLight(0.4f, 0.4f, 0.4f, 0);
+		door.setDestination(State.Level1);
+		door.lock();
+		door.setGravityDir(Directions.Up);
 		entities.add(door);
-		
-		entities.add(new Hint(this, "Switches can change the direction of gravity.",8,82,true));
-		entities.add(new Hint(this, "Press space to jump. Press it again while in air for an extra boost.",117,41,true));
-		TextDisplay.pleaseDraw("I've got a bad feeling about this..", 300);
+
 	}
 
 	DecimalFormat df = new DecimalFormat("#.##");
@@ -64,7 +68,7 @@ public class Level1 extends PlayState {
 	
 	public void update(){
 		super.update();
-		if(p.body.getPosition().y < -50)init();
+		
 	}
 	
 	@Override
@@ -75,9 +79,9 @@ public class Level1 extends PlayState {
 		
 		g.begin();
 		this.toggleMapCam();
-		bg.xshift+= 0.25;
+		//bg.xshift+= 0.25;
 		
-		bg.draw(g, cam);
+		//bg.draw(g, cam);
 		
 		this.toggleMapCam();
 		g.end();

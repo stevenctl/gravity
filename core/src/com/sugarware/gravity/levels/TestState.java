@@ -1,39 +1,48 @@
 package com.sugarware.gravity.levels;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.CollisionBits;
+import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.MathUtils;
+import com.sugarware.gravity.Rumbler;
+import com.sugarware.gravity.Script;
 import com.sugarware.gravity.entities.Animation;
-import com.sugarware.gravity.entities.Box;
-import com.sugarware.gravity.entities.Door;
-import com.sugarware.gravity.entities.DoorSwitch;
 import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
+import com.sugarware.gravity.entities.SpaceJunk;
 
-import box2dLight.PointLight;
+import box2dLight.ConeLight;
 
 public class TestState extends PlayState {
 
 
+	Script script;
 	
 	Animation snoop;
-	//TiledBackground bg;
+	TiledBackground bg;
 	BitmapFont bmf;
-	PointLight pl;
+	
+	
+	
+	long ticks = 0;
 	public TestState() {
-		super("level2.tmx", Angles.DOWN, 6 * 9.8f);
+		super("intro.tmx", Angles.DOWN, 6 * 9.8f);
+		script = new Script(Gdx.files.internal("intro.ks").read());
 		
-		
-		cam.viewportWidth = 60; cam.viewportHeight = 30;
+		cam.viewportWidth = 56; cam.viewportHeight = 28;
 		cam.update();
-		//bg = new TiledBackground("stars.jpg",256,256, false);
+		bg = new TiledBackground("stars.jpg",256,256, false);
 		snoop = new Animation("snoop.png", 64, 64, new int[]{20});
 		snoop.setDelay(100);
 		//cam.position.set(p.body.getPosition().x,p.body.getPosition().y,0);
@@ -45,28 +54,35 @@ public class TestState extends PlayState {
 	@Override
 	public void init(){
 		super.init();
-		p = new Player(this,15f, 10.02f);
-		entities.add(new Box(this,18,16));
-		entities.add(new Box(this,18,13));
-		Door door = new Door(this, 12.92f, 128f);
-		entities.add(new DoorSwitch(this, 211.3f, 105.7f, Directions.Up,door));
-		
-		door.setDestination(State.Level1);
-		door.lock();
-		door.setGravityDir(Directions.Up);
-		entities.add(door);
+		p = new Player(this,2f, 10.02f);
+		rayHandler.setAmbientLight(Color.WHITE);
 
 	}
 
 	DecimalFormat df = new DecimalFormat("#.##");
 	SpriteBatch testBatch;
 	ShapeRenderer sr;
+	private Rumbler rumb;
 	
 	
+	int lightamp = 100;int ldir = -1;
 	
 	public void update(){
 		super.update();
+		ticks++;
+		lightamp += ldir;
+		if(lightamp <= 0)ldir = 1; else if(lightamp >= 100)ldir = -1;
 		
+		if(p.body.getPosition().x > (w / 8) -18 && !GameStateManager.getInstance().isTransitioning())GameStateManager.getInstance().setState(State.Level1, true);
+		for(ConeLight l : lights){
+			l.setDistance(lightamp);
+		}
+		
+		script.update(this, ticks);
+		if(rumb!=null){
+			rumb.update();
+			if(rumb.killme)rumb = null;
+		}
 	}
 	
 	@Override
@@ -77,9 +93,9 @@ public class TestState extends PlayState {
 		
 		g.begin();
 		this.toggleMapCam();
-		//bg.xshift+= 0.25;
+		bg.xshift-= 0.25;
 		
-		//bg.draw(g, cam);
+		bg.draw(g, cam);
 		
 		this.toggleMapCam();
 		g.end();
@@ -123,20 +139,64 @@ public class TestState extends PlayState {
 		g.begin();
 	}
 	
+	public void addMeteor(){
+		int size = (int)(Math.random() * 3f) + 1;
+		String p = "m";
+		float angvel = 3f / size;
+		switch(size){
+		case 1: p+="tiny.png"; size = 12; break;
+		case 2: p+="small.png"; size = 32; break;
+		case 3: p+="med.png"; size = 63; break;
+		}
+		
+		
+		
+		SpaceJunk meteor = new SpaceJunk(this,  -10 - (float)Math.random() * 10f, (float) 17 + (float)Math.random() * 29f, p, size, size, new int[]{1}, (float) (3 + Math.random() * 4));
+		meteor.body.setAngularDamping(0);
+		meteor.body.setAngularVelocity(angvel);
+		entities.add(meteor);
+	}
+	
+	public void bigMeteor(){
+		SpaceJunk meteor = new SpaceJunk(this,  -15 , (float) 22 , "mbig.png", 128, 128, new int[]{1},11);
+		meteor.body.setAngularDamping(0);
+		meteor.body.setAngularVelocity(4.5f);
+		
+		entities.add(meteor);
+	}
+	
+	ArrayList<ConeLight> lights = new ArrayList<ConeLight>();
 	public void keyDown(int k){
 		super.keyDown(k);
+		
 		if(k == Keys.CONTROL_LEFT){
 			entities.add(new GravSwitch(this, p.body.getPosition(), this.getGravityDirection()));
 		}else if(k == Keys.ALT_LEFT){
 			entities.remove(entities.size() - 1);
 		}else if(k == Keys.NUM_8){
-			TextDisplay.pleaseDraw("Look at all this dummy text. It's so dumb. It also wraps perfectly."+
-					" Look at all this dummy text. It's so dumb. It also wraps perfectly."+
-					" Look at all this dummy text. It's so dumb. It also wraps perfectly."+
-					" Look at all this dummy text. It's so dumb. It also wraps perfectly." );
+			addMeteor();
+		}else if(k==Keys.NUM_0){
+			bigMeteor();
 		}else if (k == Keys.NUM_9){
-			//ambient = new Color(0.01f, 0.0f, 0.0f, 0.7f);
+			rumb = new Rumbler(cam, 30);
+			rayHandler.setAmbientLight(0.2f, 0.2f, 0.4f, 0.78f);
+			float i = 1.8f;
+			while(i < 300){
+				ConeLight light = new ConeLight(rayHandler, 150, Color.RED, 100, i, 9, 90, 30);
+				light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
+				lights.add(light);
+				i+= 8.4f;
+			}
+			
+			this.gVal = -5;
+			this.updateGravity();
+			
 		}
+	}
+	
+	public void keyUp(int k){
+		super.keyUp(k);
+		
 	}
 
 }

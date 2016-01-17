@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="30" height="36" tilewidth="32" tileheight="32" nextobjectid="295">
+ <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32" tilecount="70">
+  <image source="tset.png" width="224" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 4" width="30" height="36">
+  <data encoding="base64" compression="zlib">
+   eJzt0jEKwDAMBEGVchW9Ja6S/z8sagJp1AR8BrHFsZ3RgN3MRs7FPXKxoWonXrx48eLF2937vh+fKrzVHSpvdcfOdvpXePHi/d8zN4uu9F65uyhe/rOiD+MgNyA=
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="30" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztlU0KgCAQRmdRbdILdIkukK66/5lqIEGGEaR0hmqEt1DE58+nOgBwRnfCya5ABJ3izfs673AyKXg34HOK8xkJEl5sz+9QEPTS+pe9XD+NXEmeL/0XtLwIvVt3Ka1jZpyty6LkXSu9rfY4wb3PeL6BcT8hXmMmSrn6o7elu8bL5aqHl2ZNykv7mLcNWt4cb17zKnIA/GE1Fg==
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="30" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAvg0Q4AAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="30" height="36">
+  <data encoding="base64" compression="zlib">
+   eJztwQENAAAAwqD3T20ON6AAAAAAvg0Q4AAB
+  </data>
+ </layer>
+ <objectgroup name="Entities">
+  <object id="230" name="gswitch down up" x="69.3333" y="526.667"/>
+  <object id="231" name="gswitch up right" x="58.6667" y="141.333"/>
+  <object id="241" name="box" x="192" y="397" width="116" height="115"/>
+  <object id="243" name="gswitch down down" x="640" y="242.667"/>
+  <object id="245" name="box" x="804" y="133.333" width="156" height="150.667"/>
+  <object id="256" name="gswitch left left" x="684" y="654.667"/>
+  <object id="276" name="box" x="128" y="448" width="32" height="64"/>
+  <object id="284" name="gswitch down up" x="623" y="629.667"/>
+  <object id="285" name="box" x="576" y="576" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="Collisions">
+  <object id="259" x="0" y="0" width="960" height="128"/>
+  <object id="262" x="32" y="544" width="576" height="32"/>
+  <object id="266" x="480" y="928" width="192" height="224"/>
+  <object id="267" x="672" y="1120" width="288" height="128"/>
+  <object id="268" x="800" y="448" width="128" height="672"/>
+  <object id="271" x="800" y="288" width="160" height="64"/>
+  <object id="272" x="928" y="352" width="32" height="128"/>
+  <object id="273" x="800" y="352" width="32" height="64"/>
+  <object id="274" x="960" y="0" width="64" height="448"/>
+  <object id="281" x="640" y="800" width="32" height="128"/>
+  <object id="283" x="672" y="800" width="128" height="32"/>
+  <object id="286" x="608" y="640" width="64" height="160"/>
+  <object id="287" x="608" y="256" width="64" height="320"/>
+  <object id="289" x="641" y="576.667" width="30" height="14.3333"/>
+  <object id="290" x="640" y="640" width="2.33333"/>
+  <object id="291" x="640.667" y="626" width="31" height="13.6667"/>
+  <object id="292" x="0" y="128" width="32" height="448"/>
+  <object id="293" x="0" y="640" width="608" height="32"/>
+  <object id="294" x="0" y="672" width="32" height="480"/>
+ </objectgroup>
+</map>

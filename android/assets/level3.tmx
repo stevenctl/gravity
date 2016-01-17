@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="102">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="176">
  <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32" tilecount="70">
   <image source="tset.png" width="224" height="320"/>
  </tileset>
  <layer name="Tile Layer 4" width="31" height="25">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+   eJzjYGBg4ARijgGg+YFYYIDogfDvqL9H/T3q71F/j/p71N+j/h7196i/KfM3Kx5Ma3/zYMH08jcPneIbAEkPI7Q=
   </data>
  </layer>
  <layer name="Tile Layer 3" width="31" height="25">
   <data encoding="base64" compression="zlib">
-   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+   eJxjYCANcAOxLRC7EIlBanlwYFIByG5eEtWP2j147GbFgtnwmGWDQx8uPfjsxobt8NjtzIA9PbvSwW5Swajdo3aP2j1wdiOXD7ByA1c5QW27aQ1G7R5cdhNTh7LgUEcpxuYe9LYBqXmUEjyQdo8EDACOZxhS
   </data>
  </layer>
  <layer name="Tile Layer 2" width="31" height="25">
@@ -24,13 +24,21 @@
   </data>
  </layer>
  <objectgroup name="Entities">
-  <object id="79" name="light 30 0.8 0.8 1 0.4 270 30" x="128" y="35"/>
-  <object id="80" name="light 40 0.8 0.8 1 0.4 270 30" x="224" y="32"/>
-  <object id="81" name="light 40 0.8 0.8 1 0.4 270 30" x="415.5" y="32"/>
-  <object id="95" name="light 30 0.8 0.8 1 0.4 270 30" x="537.333" y="31.5"/>
-  <object id="96" name="light 30 0.8 0.8 1 0.4 270 30" x="704" y="32"/>
-  <object id="97" name="light 30 0.8 0.8 1 0.4 270 30" x="832" y="32"/>
-  <object id="101" name="light 30 0.8 0.8 1 0.4 270 30" x="-11.5" y="77.0835" width="35" height="29.833"/>
+  <object id="158" name="box" x="389.333" y="562.667" width="60" height="60"/>
+  <object id="160" name="gswitch down up" x="147.636" y="623.818"/>
+  <object id="161" name="box" x="516" y="90.6667" width="60" height="60"/>
+  <object id="162" name="gswitch up down" x="716" y="48"/>
+  <object id="175" name="gswitch down down" x="150" y="137.333"/>
  </objectgroup>
- <objectgroup name="Collisions"/>
+ <objectgroup name="Collisions">
+  <object id="163" x="0" y="160" width="192" height="352"/>
+  <object id="166" x="0" y="640" width="192" height="160"/>
+  <object id="167" x="192" y="704" width="96" height="96"/>
+  <object id="168" x="288" y="640" width="704" height="160"/>
+  <object id="169" x="768" y="0" width="224" height="640"/>
+  <object id="170" x="384" y="0" width="416" height="32"/>
+  <object id="171" x="384" y="32" width="64" height="192"/>
+  <object id="172" x="448" y="160" width="160" height="64"/>
+  <object id="173" x="-2" y="-70" width="446" height="32"/>
+ </objectgroup>
 </map>

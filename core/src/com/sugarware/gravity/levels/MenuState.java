@@ -19,7 +19,7 @@ import com.sugarware.gravity.entities.Player;
 
 import box2dLight.ConeLight;
 
-public class TestState extends PlayState {
+public class MenuState extends PlayState {
 
 
 	
@@ -31,7 +31,7 @@ public class TestState extends PlayState {
 	
 	
 	long ticks = 0;
-	public TestState() {
+	public MenuState() {
 		super("intro.tmx", Angles.DOWN, 6 * 9.8f);
 	
 		cam.viewportWidth = 57; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;

@@ -6,8 +6,14 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.sugarware.gravity.levels.GameState;
+import com.sugarware.gravity.levels.Intro;
 import com.sugarware.gravity.levels.Level1;
 import com.sugarware.gravity.levels.Level2;
+import com.sugarware.gravity.levels.Level3;
+import com.sugarware.gravity.levels.Level4;
+import com.sugarware.gravity.levels.Level5;
+import com.sugarware.gravity.levels.Level6;
+import com.sugarware.gravity.levels.MenuState;
 import com.sugarware.gravity.levels.TestState;
 
 public class GameStateManager {
@@ -22,12 +28,12 @@ public class GameStateManager {
 	}
 	
 	public static GameStateManager getInstance(){
-		if(gsm == null)gsm = new GameStateManager(State.Test);
+		if(gsm == null)gsm = new GameStateManager(State.Level6);
 		return gsm;
 	}
 	
 	public static enum State{
-		Menu, Test, Level1, Level2
+		Menu, Test,  Intro, Level1, Level2, Level3, Level4, Level5, Level6
 	}
 	
 	public GameState currentState;
@@ -52,14 +58,30 @@ public class GameStateManager {
 		}
 		switch(s){
 		case Menu:
+			currentState =  new MenuState();
 			break;
 		case Test: currentState = new TestState();
+			break;
+		case Intro:
+			currentState = new Intro();
 			break;
 		case Level1:
 			currentState = new Level1();
 			break;
 		case Level2:
 			currentState = new Level2();
+			break;
+		case Level3:
+			currentState = new Level3();
+			break;
+		case Level4:
+			currentState = new Level4();
+			break;
+		case Level5:
+			currentState = new Level5();
+			break;
+		case Level6:
+			currentState = new Level6();
 			break;
 		}
 	}

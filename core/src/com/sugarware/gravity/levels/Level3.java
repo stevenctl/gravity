@@ -4,22 +4,28 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.utils.Align;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.CollisionBits;
 import com.sugarware.gravity.GameStateManager;
+import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.Rumbler;
+import com.sugarware.gravity.Script;
 import com.sugarware.gravity.entities.Animation;
+import com.sugarware.gravity.entities.Door;
+import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
+import com.sugarware.gravity.entities.SpaceJunk;
 
 import box2dLight.ConeLight;
 
-public class TestState extends PlayState {
+public class Level3 extends PlayState {
 
 
 	
@@ -31,10 +37,10 @@ public class TestState extends PlayState {
 	
 	
 	long ticks = 0;
-	public TestState() {
-		super("intro.tmx", Angles.DOWN, 6 * 9.8f);
+	public Level3() {
+		super("level3.tmx", Angles.DOWN, 6 * 9.8f);
 	
-		cam.viewportWidth = 57; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;
+		cam.viewportWidth = 56; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;
 		System.out.println(GdxGame.aspect);
 		cam.update();
 		bg = new TiledBackground("stars.jpg",256,256, false);
@@ -50,13 +56,20 @@ public class TestState extends PlayState {
 	@Override
 	public void init(){
 		super.init();
-		p = new Player(this,3f, 22.02f);
+		p = new Player(this,3f, 19.02f);
 		this.setGravity(3 * (float)Math.PI / 2f);
-		
-		rayHandler.setAmbientLight(Color.WHITE);
-		
-		
-		
+		//rayHandler.setAmbientLight(Color.WHITE);
+		rayHandler.setAmbientLight(0.2f, 0.2f, 0.4f, 0.78f);
+		float i = 1.8f;
+		while(i < 300){
+			ConeLight light = new ConeLight(rayHandler, 150, Color.RED, 100, i, 0, 90, 30);
+			light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
+			lights.add(light);
+			i+= 8.4f;
+		}
+		Door door = new Door(this, 8, 84.02f);
+		door.setDestination(State.Level4);
+		entities.add(door);
 	}
 
 	DecimalFormat df = new DecimalFormat("#.##");
@@ -101,7 +114,7 @@ public class TestState extends PlayState {
 		g.end();
 		if(testBatch == null){
 			testBatch = new SpriteBatch();
-			bmf = new BitmapFont(Gdx.files.internal("kr.fnt"));
+			bmf = new BitmapFont();
 		}
 
 		
@@ -116,17 +129,6 @@ public class TestState extends PlayState {
 		testBatch.end();
 		
 		TextDisplay.draw(testBatch);
-		bmf.getData().setScale((float) Gdx.graphics.getWidth() / 300f);
-		testBatch.begin();
-		bmf.setColor(1, 1, 1, 1);
-		bmf.draw(testBatch, "Gravity", Gdx.graphics.getWidth() / 4, 3 * Gdx.graphics.getHeight() / 4, 0, "Gravity".length(), Gdx.graphics.getWidth() / 2, Align.center, false, "...");
-	
-		bmf.setColor(1, 1, 1, (float)Math.sin(ticks / 50f));
-		bmf.getData().setScale((float) Gdx.graphics.getWidth() / 600f);
-		bmf.draw(testBatch, "Press any key...", 0, Gdx.graphics.getHeight() / 4, 0, "Press any key...".length(), Gdx.graphics.getWidth() , Align.center, false, "...");
-		
-		testBatch.end();
-		bmf.getData().setScale(1);
 	}
 	
 	@Override
@@ -154,12 +156,26 @@ public class TestState extends PlayState {
 	
 	ArrayList<ConeLight> lights = new ArrayList<ConeLight>();
 	public void keyDown(int k){
-	//	super.keyDown(k);
-		GameStateManager.getInstance().setState(GameStateManager.State.Intro, false);
+		super.keyDown(k);
+		
+		if(k == Keys.CONTROL_LEFT){
+		//	entities.add(new GravSwitch(this, p.body.getPosition(), this.getGravityDirection()));
+		}else if(k == Keys.ALT_LEFT){
+			//entities.remove(entities.size() - 1);
+		}else if(k == Keys.NUM_8){
+			
+		}else if(k==Keys.NUM_0){
+			
+		}else if (k == Keys.NUM_9){
+			
+	
+		
+			
+		}
 	}
 	
 	public void keyUp(int k){
-		//super.keyUp(k);
+		super.keyUp(k);
 		
 	}
 

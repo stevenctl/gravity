@@ -83,29 +83,18 @@ public abstract class PlayState extends IngameState{
 		
 		
 		switch(keycode){
-		case Keys.RIGHT:
-			cam.position.x+= 6;
-			break;
-		case Keys.LEFT:
-			cam.position.x-= 6;
-			break;
-		case Keys.UP:
-			cam.position.y+= 6;
-			break;
-		case Keys.DOWN:
-			cam.position.y-= 6;
-			break;
+		
 			
-		case Keys.NUMPAD_8:
+		case Keys.UP:
 			gTheta = Angles.UP;
 			break;
-		case Keys.NUMPAD_2:
+		case Keys.DOWN:
 			gTheta = Angles.DOWN;
 			break;
-		case Keys.NUMPAD_4:
+		case Keys.LEFT:
 			gTheta = Angles.LEFT;
 			break;
-		case Keys.NUMPAD_6:
+		case Keys.RIGHT:
 			gTheta = Angles.RIGHT;
 			break;
 				

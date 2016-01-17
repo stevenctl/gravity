@@ -1,12 +1,15 @@
 package com.sugarware.gravity.levels;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.sugarware.gravity.Angles;
+import com.sugarware.gravity.CollisionBits;
 import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.MathUtils;
@@ -17,6 +20,7 @@ import com.sugarware.gravity.entities.DoorSwitch;
 import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
 
+import box2dLight.ConeLight;
 import box2dLight.PointLight;
 
 public class Level2 extends PlayState {
@@ -46,6 +50,7 @@ public class Level2 extends PlayState {
 	@Override
 	public void init(){
 		super.init();
+		
 		this.setGravity(3 * (float)Math.PI / 2f);
 		p = new Player(this,15f, 10.02f);
 		entities.add(new Box(this,18,16));
@@ -53,21 +58,36 @@ public class Level2 extends PlayState {
 		Door door = new Door(this, 12.62f, 128f);
 		entities.add(new DoorSwitch(this, 211.75f, 105.7f, Directions.Up,door));
 		rayHandler.setAmbientLight(0.4f, 0.4f, 0.4f, 0);
-		door.setDestination(State.Level1);
+		float i = 1.8f;
+		while(i < 300){
+			ConeLight light = new ConeLight(rayHandler, 150, Color.RED, 100, i, 0, 90, 30);
+			light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
+			lights.add(light);
+			i+= 8.4f;
+		}
+		door.setDestination(State.Level3);
 		door.lock();
 		door.setGravityDir(Directions.Up);
 		entities.add(door);
 
 	}
-
+	int lightamp = 100;int ldir = -1;
 	DecimalFormat df = new DecimalFormat("#.##");
 	SpriteBatch testBatch;
 	ShapeRenderer sr;
 	
-	
+	ArrayList<ConeLight> lights = new ArrayList<ConeLight>();
 	
 	public void update(){
 		super.update();
+		
+		lightamp += ldir;
+		if(lightamp <= 0)ldir = 1; else if(lightamp >= 100)ldir = -1;
+		
+	
+		for(ConeLight l : lights){
+			l.setDistance(lightamp);
+		}
 		
 	}
 	

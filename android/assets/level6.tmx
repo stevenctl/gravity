@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="30" height="40" tilewidth="32" tileheight="32" nextobjectid="321">
+ <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32" tilecount="70">
+  <image source="tset.png" width="224" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 4" width="30" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt0LERACAMA7GUoYL9pyVTBDhU+L6WMyJGLZs7a+tAu528vLy8vLy8vLy8L/e3n3l5eXl57/RuOMs3bw==
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="30" height="40">
+  <data encoding="base64" compression="zlib">
+   eJzt1kEKgCAQBdAW1aa6gFAdwQtUm+z+V2oEA5EMHHUGYj58aqG+hQpODU8mccncDbpDD2L3hBroRexyxLra/euvgS4ttC/kpmRAzBE3vkZsH2u7sfXtnStx31LdUhFX3JquYnLD/NmdoQt0JXbfIq64nK59H3SI5rp23Ihorvu8+Q2xG84RF++q4OvHP8+U+8t1nrERl8a9AeEBDSs=
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="30" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="30" height="40">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T20ND6AAAAAA4NcAEsAAAQ==
+  </data>
+ </layer>
+ <objectgroup name="Entities">
+  <object id="297" name="box" x="32" y="603" width="96" height="96"/>
+  <object id="298" name="gswitch down up" x="79" y="598"/>
+  <object id="299" name="gswitch up right" x="78.6667" y="205.333"/>
+  <object id="316" x="192" y="800" width="64" height="532"/>
+  <object id="320" name="gswitch right down" x="370.5" y="285.5"/>
+ </objectgroup>
+ <objectgroup name="Collisions">
+  <object id="300" x="32.6667" y="705.333" width="93.3333" height="13.3333"/>
+  <object id="301" x="34" y="243.333" width="28" height="10.6667"/>
+  <object id="303" x="100" y="242.667" width="24.6667" height="10.6667"/>
+  <object id="304" x="32" y="128" width="96" height="64"/>
+  <object id="305" x="192" y="352" width="64" height="448"/>
+  <object id="306" x="512" y="1088" width="480" height="64"/>
+  <object id="307" x="608" y="992" width="384" height="96"/>
+  <object id="309" x="512" y="896" width="544" height="96"/>
+  <object id="310" x="384" y="224" width="64" height="192"/>
+  <object id="312" x="288" y="1088" width="28.6667" height="14.6667"/>
+  <object id="313" x="350.667" y="1088" width="29.3333" height="12"/>
+  <object id="314" x="-32" y="0" width="64" height="800"/>
+  <object id="318" x="-32" y="832" width="64" height="448"/>
+  <object id="319" x="0" y="800" width="32" height="32"/>
+ </objectgroup>
+</map>

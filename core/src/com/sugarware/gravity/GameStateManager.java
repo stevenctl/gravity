@@ -28,7 +28,7 @@ public class GameStateManager {
 	}
 	
 	public static GameStateManager getInstance(){
-		if(gsm == null)gsm = new GameStateManager(State.Level6);
+		if(gsm == null)gsm = new GameStateManager(State.Menu);
 		return gsm;
 	}
 	

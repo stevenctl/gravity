@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="31" height="25" tilewidth="32" tileheight="32" nextobjectid="102">
+ <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32" tilecount="70">
+  <image source="tset.png" width="224" height="320"/>
+ </tileset>
+ <layer name="Tile Layer 4" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 3" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 2" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <layer name="Tile Layer 1" width="31" height="25">
+  <data encoding="base64" compression="zlib">
+   eJztwQEBAAAAgJD+r+4ICgAAoAYMHAAB
+  </data>
+ </layer>
+ <objectgroup name="Entities">
+  <object id="79" name="light 30 0.8 0.8 1 0.4 270 30" x="128" y="35"/>
+  <object id="80" name="light 40 0.8 0.8 1 0.4 270 30" x="224" y="32"/>
+  <object id="81" name="light 40 0.8 0.8 1 0.4 270 30" x="415.5" y="32"/>
+  <object id="95" name="light 30 0.8 0.8 1 0.4 270 30" x="537.333" y="31.5"/>
+  <object id="96" name="light 30 0.8 0.8 1 0.4 270 30" x="704" y="32"/>
+  <object id="97" name="light 30 0.8 0.8 1 0.4 270 30" x="832" y="32"/>
+  <object id="101" name="light 30 0.8 0.8 1 0.4 270 30" x="-11.5" y="77.0835" width="35" height="29.833"/>
+ </objectgroup>
+ <objectgroup name="Collisions"/>
+</map>

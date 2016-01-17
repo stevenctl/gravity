@@ -34,6 +34,12 @@ public class GameStateManager {
 	
 	public void setState(State s){
 		setState(s, false);
+		
+	
+	}
+	
+	public void setState(GameState gs){
+		currentState = gs;
 	}
 	
 	public void setState(State s, boolean t){

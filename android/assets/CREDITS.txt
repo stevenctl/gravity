@@ -1,0 +1,7 @@
+Thanks to the OpenGameArt people who helped make this:
+(Graphics)
+Charcacter - Troy from the Journey to the Center of Hawkthorne 
+Hawkthorne contribs: https://github.com/hawkthorne/hawkthorne-journey/blob/master/CONTRIBUTORS
+
+(Music) 
+Lines of Code - Trevor Lentz

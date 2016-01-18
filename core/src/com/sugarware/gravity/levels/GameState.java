@@ -10,4 +10,8 @@ public abstract class GameState {
 	public abstract void keyDown(int k);
 	public abstract void keyUp(int k);
 	public abstract void init();
+	public void unload() {
+		// TODO Auto-generated method stub
+		
+	}
 }

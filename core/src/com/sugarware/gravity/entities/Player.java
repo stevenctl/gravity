@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.badlogic.gdx.utils.Array;
+import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.HUD;
 import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.ResourceManager;
@@ -41,7 +43,7 @@ public class Player extends Entity {
 	private boolean hasDoubleJumped;
 	private int jumpCool = 20;
 	
-	
+	static Sound gravSound = Gdx.audio.newSound(Gdx.files.internal("explosion.wav"));
 	int animState = 0;
 	static final int run = 0;
 	static final int jump = 1;
@@ -301,6 +303,7 @@ public class Player extends Entity {
 					if(colitem instanceof Door){
 						if(!((Door)colitem).locked)freeze = true;
 					}
+					if(colitem instanceof GravSwitch)gravSound.play();
 				}
 			
 			}
@@ -308,6 +311,9 @@ public class Player extends Entity {
 			
 			break;
 			
+			
+		case Keys.R:
+			GameStateManager.getInstance().currentState.init();
 		
 		case Keys.SPACE:
 			if(isGrounded() || ( !hasDoubleJumped)){

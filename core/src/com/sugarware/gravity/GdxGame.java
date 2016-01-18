@@ -28,7 +28,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	public void render () {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		
+		Gdx.graphics.setTitle("Gravity " + Gdx.graphics.getFramesPerSecond());
 		GameStateManager.getInstance().tick(g);
 	
 		//Gdx.gl.glDisable(GL20.GL_BLEND);

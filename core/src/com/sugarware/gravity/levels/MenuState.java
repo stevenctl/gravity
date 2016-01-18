@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -28,7 +30,7 @@ public class MenuState extends PlayState {
 	TiledBackground bg;
 	BitmapFont bmf;
 	
-	
+	static Music music = Gdx.audio.newMusic(Gdx.files.internal("loc.mp3"));
 	
 	long ticks = 0;
 	public MenuState() {
@@ -52,7 +54,9 @@ public class MenuState extends PlayState {
 		super.init();
 		p = new Player(this,3f, 22.02f);
 		this.setGravity(3 * (float)Math.PI / 2f);
-		
+		if(music.isPlaying())music.stop();
+		music.play();
+		music.setVolume(0.7f);
 		rayHandler.setAmbientLight(Color.WHITE);
 		
 		
@@ -123,8 +127,9 @@ public class MenuState extends PlayState {
 	
 		bmf.setColor(1, 1, 1, (float)Math.sin(ticks / 50f));
 		bmf.getData().setScale((float) Gdx.graphics.getWidth() / 600f);
-		bmf.draw(testBatch, "Press any key...", 0, Gdx.graphics.getHeight() / 4, 0, "Press any key...".length(), Gdx.graphics.getWidth() , Align.center, false, "...");
-		
+		bmf.draw(testBatch, "Press any key...", 0, Gdx.graphics.getHeight() / 3, 0, "Press any key...".length(), Gdx.graphics.getWidth() , Align.center, false, "...");
+		bmf.setColor(1,1,1,1);
+		bmf.draw(testBatch, "E - Controls", 0, Gdx.graphics.getHeight() - bmf.getLineHeight() / 4, 0, "E - Controls".length(), Gdx.graphics.getWidth(),Align.topLeft, false, "...");
 		testBatch.end();
 		bmf.getData().setScale(1);
 	}
@@ -155,6 +160,11 @@ public class MenuState extends PlayState {
 	ArrayList<ConeLight> lights = new ArrayList<ConeLight>();
 	public void keyDown(int k){
 	//	super.keyDown(k);
+		
+		if(k == Keys.E){
+			GameStateManager.getInstance().setState(GameStateManager.State.Help, false);
+			return;
+		}
 		GameStateManager.getInstance().setState(GameStateManager.State.Intro, false);
 	}
 	

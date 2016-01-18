@@ -60,13 +60,7 @@ public class Level3 extends PlayState {
 		this.setGravity(3 * (float)Math.PI / 2f);
 		//rayHandler.setAmbientLight(Color.WHITE);
 		rayHandler.setAmbientLight(0.2f, 0.2f, 0.4f, 0.78f);
-		float i = 1.8f;
-		while(i < 300){
-			ConeLight light = new ConeLight(rayHandler, 150, Color.RED, 100, i, 0, 90, 30);
-			light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
-			lights.add(light);
-			i+= 8.4f;
-		}
+		
 		Door door = new Door(this, 8, 84.02f);
 		door.setDestination(State.Level4);
 		entities.add(door);

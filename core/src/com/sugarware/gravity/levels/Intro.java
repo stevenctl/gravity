@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -23,6 +24,7 @@ import com.sugarware.gravity.entities.Player;
 import com.sugarware.gravity.entities.SpaceJunk;
 
 import box2dLight.ConeLight;
+import box2dLight.Light;
 
 public class Intro extends PlayState {
 
@@ -33,13 +35,14 @@ public class Intro extends PlayState {
 	TiledBackground bg;
 	BitmapFont bmf;
 	
-	
-	
+	 Sound alarm ; 
+	 Sound boom ;
 	long ticks = 0;
 	public Intro() {
 		super("intro.tmx", Angles.DOWN, 6 * 9.8f);
 		script = new Script(Gdx.files.internal("intro.ks").read());
-		
+		alarm =  Gdx.audio.newSound(Gdx.files.internal("alarm.ogg"));
+		boom = Gdx.audio.newSound(Gdx.files.internal("explosion1.wav"));
 		cam.viewportWidth = 56; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;
 		System.out.println(GdxGame.aspect);
 		cam.update();
@@ -74,7 +77,10 @@ public class Intro extends PlayState {
 		lightamp += ldir;
 		if(lightamp <= 0)ldir = 1; else if(lightamp >= 100)ldir = -1;
 		
-		if(p.body.getPosition().x > (w / 8) -18 && !GameStateManager.getInstance().isTransitioning())GameStateManager.getInstance().setState(State.Level1, true);
+		if(p.body.getPosition().x > (w / 8) -18 && !GameStateManager.getInstance().isTransitioning()){
+			alarm.stop();
+			GameStateManager.getInstance().setState(State.Level1, true);
+		}
 		for(ConeLight l : lights){
 			l.setDistance(lightamp);
 		}
@@ -180,6 +186,8 @@ public class Intro extends PlayState {
 			bigMeteor();
 		}else if (k == Keys.NUM_9){
 			rumb = new Rumbler(cam, 30);
+			alarm.loop(0.7f);
+			boom.play();
 			rayHandler.setAmbientLight(0.2f, 0.2f, 0.4f, 0.78f);
 			float i = 1.8f;
 			while(i < 300){
@@ -197,6 +205,15 @@ public class Intro extends PlayState {
 	
 	public void keyUp(int k){
 		super.keyUp(k);
+		
+	}
+	
+	public void unload(){
+		alarm.dispose();
+		boom.dispose();
+		for(Light l : lights){
+			l.dispose();
+		}
 		
 	}
 

@@ -33,6 +33,7 @@ public abstract class PlayState extends IngameState{
 	}
 	
 	public void update(){
+		if(!MenuState.music.isPlaying())MenuState.music.play();
 		if(!loaded){
 			load();
 			p.setBits(CollisionBits.CATEGORY_ENTITY, CollisionBits.MASK_ENTITY);

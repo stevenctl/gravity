@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="26" height="40" tilewidth="32" tileheight="32" nextobjectid="229">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="26" height="40" tilewidth="32" tileheight="32" nextobjectid="233">
  <tileset firstgid="1" name="tset" tilewidth="32" tileheight="32" tilecount="70">
   <image source="tset.png" width="224" height="320"/>
  </tileset>
@@ -31,6 +31,8 @@
   <object id="223" name="gswitch left left" x="524" y="656"/>
   <object id="226" name="gswitch down down" x="446" y="564"/>
   <object id="227" name="light 100 0.8 0.8 1 0.4 0 60" x="-168" y="540"/>
+  <object id="229" name="light 40 0.8 0.8 1 0.4 180 30" x="636" y="737.333"/>
+  <object id="232" name="light 190 0.8 0.8 1 0.4 0 60" x="14" y="504"/>
  </objectgroup>
  <objectgroup name="Collisions">
   <object id="190" x="0" y="576" width="512" height="160"/>

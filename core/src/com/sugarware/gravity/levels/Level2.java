@@ -21,6 +21,7 @@ import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
 
 import box2dLight.ConeLight;
+import box2dLight.Light;
 import box2dLight.PointLight;
 
 public class Level2 extends PlayState {
@@ -58,13 +59,8 @@ public class Level2 extends PlayState {
 		Door door = new Door(this, 12.62f, 128f);
 		entities.add(new DoorSwitch(this, 211.75f, 105.7f, Directions.Up,door));
 		rayHandler.setAmbientLight(0.4f, 0.4f, 0.4f, 0);
-		float i = 1.8f;
-		while(i < 300){
-			ConeLight light = new ConeLight(rayHandler, 150, Color.RED, 100, i, 0, 90, 30);
-			light.setContactFilter(CollisionBits.CATEGORY_LIGHT, (short) 0, CollisionBits.MASK_LIGHT);
-			lights.add(light);
-			i+= 8.4f;
-		}
+		
+		
 		door.setDestination(State.Level3);
 		door.lock();
 		door.setGravityDir(Directions.Up);
@@ -158,6 +154,14 @@ public class Level2 extends PlayState {
 					" Look at all this dummy text. It's so dumb. It also wraps perfectly." );
 		}else if (k == Keys.NUM_9){
 			//ambient = new Color(0.01f, 0.0f, 0.0f, 0.7f);
+		}
+	}
+
+	
+public void unload(){
+		
+		for(Light l : lights){
+			l.dispose();
 		}
 	}
 

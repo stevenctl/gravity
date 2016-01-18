@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.sugarware.gravity.levels.GameState;
+import com.sugarware.gravity.levels.HelpState;
 import com.sugarware.gravity.levels.Intro;
 import com.sugarware.gravity.levels.Level1;
 import com.sugarware.gravity.levels.Level2;
@@ -33,7 +34,7 @@ public class GameStateManager {
 	}
 	
 	public static enum State{
-		Menu, Test,  Intro, Level1, Level2, Level3, Level4, Level5, Level6
+		Menu, Test,  Intro, Level1, Level2, Level3, Level4, Level5, Level6, Help
 	}
 	
 	public GameState currentState;
@@ -45,6 +46,7 @@ public class GameStateManager {
 	}
 	
 	public void setState(GameState gs){
+		if(currentState != null)currentState.unload();
 		currentState = gs;
 	}
 	
@@ -56,7 +58,11 @@ public class GameStateManager {
 			destination = s;
 			return;
 		}
+		if(currentState != null)currentState.unload();
 		switch(s){
+		case Help:
+			currentState = new HelpState();
+			break;
 		case Menu:
 			currentState =  new MenuState();
 			break;

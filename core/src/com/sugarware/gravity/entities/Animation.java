@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.TimeUtils;
 
 //Controlls image cycling for animatons.
 
@@ -41,7 +42,7 @@ public class Animation {
 	public void setFrames(TextureRegion[] frames) {
 		 this.frames = frames;
 		 curFrame = 0;
-		 startTime = System.nanoTime();
+		 startTime = TimeUtils.nanoTime();
 		 playOnce = false;
 	}
 	
@@ -64,11 +65,11 @@ public class Animation {
 	public void update(){
 		if(delay == -1 ) return; //NO ANIMATION
 		
-		long elapsed = (System.nanoTime() - startTime) / 1000000;
+		long elapsed = (TimeUtils.nanoTime()- startTime) / 1000000;
 		if (elapsed > delay) {
 			curFrame++;
 			
-			startTime = System.nanoTime();
+			startTime =TimeUtils.nanoTime();
 		}
 		if(frames != null){
 		if(curFrame == frames.length - 1){

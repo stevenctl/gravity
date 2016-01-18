@@ -1,27 +1,18 @@
 package com.sugarware.gravity.levels;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.sugarware.gravity.Angles;
-import com.sugarware.gravity.CollisionBits;
-import com.sugarware.gravity.GameStateManager;
 import com.sugarware.gravity.GameStateManager.State;
 import com.sugarware.gravity.GdxGame;
-import com.sugarware.gravity.MathUtils;
 import com.sugarware.gravity.Rumbler;
-import com.sugarware.gravity.Script;
 import com.sugarware.gravity.entities.Animation;
 import com.sugarware.gravity.entities.Door;
-import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
-import com.sugarware.gravity.entities.SpaceJunk;
 
 import box2dLight.ConeLight;
 
@@ -66,7 +57,7 @@ public class Level3 extends PlayState {
 		entities.add(door);
 	}
 
-	DecimalFormat df = new DecimalFormat("#.##");
+	
 	SpriteBatch testBatch;
 	ShapeRenderer sr;
 	private Rumbler rumb;
@@ -134,15 +125,7 @@ public class Level3 extends PlayState {
 			g.end();
 		}
 		
-		if(debugCollisions){
-		testBatch.begin();
-		bmf.draw(testBatch, "Gravity Angle: " 
-		+ df.format(MathUtils.normalAngle(gTheta) / Math.PI) + "pi rad"
-		,20,20 );
-		bmf.draw(testBatch, df.format(p.body.getPosition().x) +", "+ df.format(p.body.getPosition().y),20, 40);
-		if(p.colitem != null)bmf.draw(testBatch, p.colitem.getClass().toString(),20,60);
-		testBatch.end();
-		}
+	
 		g.begin();
 	}
 	

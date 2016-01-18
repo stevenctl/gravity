@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.sugarware.gravity.Angles;
 import com.sugarware.gravity.CollisionBits;
 import com.sugarware.gravity.entities.Door;
 import com.sugarware.gravity.entities.Entity;
@@ -87,29 +86,29 @@ public abstract class PlayState extends IngameState{
 		
 			
 		case Keys.UP:
-			gTheta = Angles.UP;
+			//gTheta = Angles.UP;
 			break;
 		case Keys.DOWN:
-			gTheta = Angles.DOWN;
+			//gTheta = Angles.DOWN;
 			break;
 		case Keys.LEFT:
-			gTheta = Angles.LEFT;
+			//gTheta = Angles.LEFT;
 			break;
 		case Keys.RIGHT:
-			gTheta = Angles.RIGHT;
+			//gTheta = Angles.RIGHT;
 			break;
 				
 		case Keys.NUM_1:
-			gVal = 1;
+			//gVal = 1;
 			break;
 		case Keys.NUM_2:
-			gVal = 5;
+			//gVal = 5;
 			break;
 		case Keys.NUM_3:
-			gVal = 10;
+			//gVal = 10;
 			break;
 		case Keys.NUM_4:
-			gVal = 0;
+			//gVal = 0;
 			break;
 			
 		}

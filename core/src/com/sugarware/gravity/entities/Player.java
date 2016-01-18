@@ -1,8 +1,6 @@
 package com.sugarware.gravity.entities;
 
 
-import java.text.DecimalFormat;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
@@ -248,9 +246,6 @@ public class Player extends Entity {
 
 	
 	
-	DecimalFormat df = new DecimalFormat("##.###");
-
-	
 	
 
 	
@@ -258,8 +253,8 @@ public class Player extends Entity {
 	
 	String cleanCoords(Vector2 v2){
 		return "(" + 
-					df.format(MathUtils.normalAngle(v2.x)) + ", " + 
-				df.format(MathUtils.normalAngle(v2.y)) + ")";
+					MathUtils.normalAngle(v2.x)+ ", " + 
+				MathUtils.normalAngle(v2.y) + ")";
 	}
 	
 	

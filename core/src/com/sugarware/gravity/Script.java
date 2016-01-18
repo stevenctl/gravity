@@ -1,11 +1,10 @@
 package com.sugarware.gravity;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Scanner;
 
 import com.sugarware.gravity.levels.PlayState;
 
@@ -17,32 +16,31 @@ public class Script {
 		down = new HashMap<Long, Integer>();
 	}
 	
-	public Script(String path) throws FileNotFoundException{
-		this();
-		File f = new File(path);
-	 
-		
-		Scanner	sc = new Scanner(f);
-			while(sc.hasNextLine()){
-				String[] l = sc.nextLine().split(" ");
-				if(l.length != 3)continue;
-				(l[0].equals("u") ? up : down).put(Long.parseLong(l[1]), Integer.parseInt(l[2]));
-			}
-			sc.close();
-		
-	}
+	
 	
 	public Script(InputStream read) {
 		this();
-		Scanner sc = new Scanner(read);
-		while(sc.hasNextLine()){
-			String[] l = sc.nextLine().split(" ");
+		BufferedReader sc = new BufferedReader(new InputStreamReader(read));
+		
+		String line;
+		try {
+			line = sc.readLine();
+		
+		while(line != null){
+			if(line.length() <= 0)break;
+			String[] l = line.split(" ");
 			if(l.length != 3)continue;
 			(l[0].equals("u") ? up : down).put(Long.parseLong(l[1]), Integer.parseInt(l[2]));
+			line = sc.readLine();
 		}
 		sc.close();
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
-
+/*
 	public void write(String filename) throws FileNotFoundException{
 		File f = new File(filename);
 		PrintWriter pw = new PrintWriter(f);
@@ -53,7 +51,7 @@ public class Script {
 			pw.println("d " + t + " " + down.get(t));
 		}
 		pw.close();
-	}
+	}*/
 	
 	public void keyDown(long t, int k){
 		down.put(t, k);

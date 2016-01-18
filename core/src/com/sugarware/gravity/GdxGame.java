@@ -20,7 +20,7 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		GameStateManager.getInstance();
 		Gdx.input.setInputProcessor(this);
 		
-		new Thread(new Console(this)).start();
+		
 	}
 
 	

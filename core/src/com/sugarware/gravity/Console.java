@@ -1,6 +1,5 @@
 package com.sugarware.gravity;
 
-import java.util.Scanner;
 
 import com.badlogic.gdx.Gdx;
 import com.sugarware.gravity.entities.Door;
@@ -8,7 +7,7 @@ import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.PlayState.Directions;
 
-public class Console implements Runnable{
+public class Console {
 
 	GdxGame g;
 	
@@ -16,16 +15,7 @@ public class Console implements Runnable{
 		g = game;
 	}
 	boolean running = true;
-	@Override
-	public void run() {
-		Scanner sc = new Scanner(System.in);
-		while(running){
-			String in = sc.nextLine();
-			if(!cmd(in))System.err.println("Invalid Input");
 
-		}
-		sc.close();
-	}
 
 	
 	

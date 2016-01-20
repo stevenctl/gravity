@@ -1,5 +1,6 @@
 package com.sugarware.gravity;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
@@ -11,16 +12,22 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	
 	public static boolean smokeweed;
 	SpriteBatch g;
-	
+	OnscreenController phoneControls;
 	public static float aspect;
+	static boolean isMobile;
 	@Override
 	public void create () {
 		g = new SpriteBatch();
 		aspect = (float) Gdx.graphics.getHeight() /(float) Gdx.graphics.getWidth() ;
 		GameStateManager.getInstance();
 		Gdx.input.setInputProcessor(this);
-		
-		
+		ApplicationType appType = Gdx.app.getType();
+		if(appType == ApplicationType.Android || appType == ApplicationType.iOS)
+		{
+			isMobile = true;
+			phoneControls = new OnscreenController(this);
+			Gdx.input.setInputProcessor(phoneControls);
+		}	
 	}
 
 	
@@ -29,8 +36,9 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		Gdx.graphics.setTitle("Gravity " + Gdx.graphics.getFramesPerSecond());
-		GameStateManager.getInstance().tick(g);
 	
+		GameStateManager.getInstance().tick(g);
+		if(phoneControls != null)phoneControls.draw();	
 		//Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
@@ -44,10 +52,17 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	@Override
 	public boolean keyUp(int keycode) {
 		GameStateManager.getInstance().keyUp(keycode);
+		
 		return false;
 	}
-
-	
+  
+	@Override
+	public void resize(int w, int h){
+		if(phoneControls != null){
+			OnscreenController.w = w;
+			OnscreenController.h = h;
+		}
+	}
 	
 	
 	
@@ -88,5 +103,11 @@ public class GdxGame extends ApplicationAdapter implements InputProcessor {
 	public boolean scrolled(int amount) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+
+	public static boolean isMobile() {
+		// TODO Auto-generated method stub
+		return isMobile;
 	}
 }

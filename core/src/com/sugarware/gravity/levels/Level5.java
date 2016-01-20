@@ -22,7 +22,7 @@ public class Level5 extends PlayState {
 	
 	
 	Animation snoop;
-	TiledBackground bg;
+	//TiledBackground bg;
 	BitmapFont bmf;
 	
 	
@@ -34,7 +34,7 @@ public class Level5 extends PlayState {
 		cam.viewportWidth = 56; cam.viewportHeight = GdxGame.aspect * cam.viewportWidth;
 		System.out.println(GdxGame.aspect);
 		cam.update();
-		bg = new TiledBackground("stars.jpg",256,256, false);
+		//bg = new TiledBackground("stars.jpg",256,256, false);
 		snoop = new Animation("snoop.png", 64, 64, new int[]{20});
 		snoop.setDelay(100);
 		//cam.position.set(p.bodyfds.getPosition().x,p.body.getPosition().y,0);
@@ -68,6 +68,10 @@ public class Level5 extends PlayState {
 	
 	public void update(){
 		super.update();
+		if(GdxGame.isMobile()){
+			rayHandler.removeAll();
+		}
+		
 		ticks++;
 		lightamp += ldir;
 		if(lightamp <= 0)ldir = 1; else if(lightamp >= 100)ldir = -1;
@@ -92,9 +96,9 @@ public class Level5 extends PlayState {
 		
 		g.begin();
 		this.toggleMapCam();
-		bg.xshift-= 0.25;
+	//	bg.xshift-= 0.25;
 		
-		bg.draw(g, cam);
+		//bg.draw(g, cam);
 		
 		this.toggleMapCam();
 		g.end();

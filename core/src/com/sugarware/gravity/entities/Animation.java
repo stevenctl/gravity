@@ -140,5 +140,10 @@ public static ArrayList<TextureRegion[]> loadImages(String path, int w, int h, i
 			
 		}
 	}
+
+public void dispose() {
+	frames[0].getTexture().dispose();
+	
+}
 	
 }

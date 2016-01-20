@@ -17,6 +17,7 @@ import com.sugarware.gravity.GdxGame;
 import com.sugarware.gravity.Rumbler;
 import com.sugarware.gravity.Script;
 import com.sugarware.gravity.entities.Animation;
+import com.sugarware.gravity.entities.Entity;
 import com.sugarware.gravity.entities.GravSwitch;
 import com.sugarware.gravity.entities.Player;
 import com.sugarware.gravity.entities.SpaceJunk;
@@ -203,6 +204,9 @@ public class Intro extends PlayState {
 		boom.dispose();
 		for(Light l : lights){
 			l.dispose();
+		}
+		for(Entity e : entities){
+			e.dispose();
 		}
 		
 	}

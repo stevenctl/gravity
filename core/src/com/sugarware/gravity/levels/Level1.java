@@ -80,6 +80,11 @@ public class Level1 extends PlayState {
 	
 	
 	public void update(){
+		
+		if(GdxGame.isMobile())
+			rayHandler.removeAll();
+		
+		
 		super.update();
 		if(p.body.getPosition().y < -50)init();
 		

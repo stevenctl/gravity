@@ -31,7 +31,7 @@
   <object id="223" name="gswitch left left" x="524" y="656"/>
   <object id="226" name="gswitch down down" x="446" y="564"/>
   <object id="227" name="light 100 0.8 0.8 1 0.4 0 60" x="-168" y="540"/>
-  <object id="229" name="light 40 0.8 0.8 1 0.4 180 30" x="636" y="737.333"/>
+  <object id="229" name="light 40 0.8 0.8 1 0.4 180 30" x="631.333" y="736"/>
   <object id="232" name="light 190 0.8 0.8 1 0.4 0 60" x="14" y="504"/>
  </objectgroup>
  <objectgroup name="Collisions">

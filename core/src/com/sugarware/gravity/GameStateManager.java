@@ -15,6 +15,7 @@ import com.sugarware.gravity.levels.Level4;
 import com.sugarware.gravity.levels.Level5;
 import com.sugarware.gravity.levels.Level6;
 import com.sugarware.gravity.levels.MenuState;
+import com.sugarware.gravity.levels.PlayState;
 import com.sugarware.gravity.levels.TestState;
 
 public class GameStateManager {
@@ -128,6 +129,12 @@ public class GameStateManager {
 	public boolean isTransitioning() {
 		// TODO Auto-generated method stub
 		return transition;
+	}
+
+
+
+	public static boolean isPlayState() {
+		return getInstance().currentState instanceof PlayState;
 	}
 	
 }

@@ -123,9 +123,9 @@ public abstract class IngameState extends GameState {
 		
 		
 		
-		if(renderer == null)renderer = new Box2DDebugRenderer();
+		//if(renderer == null)renderer = new Box2DDebugRenderer();
 		
-		if(debugCollisions)renderer.render(world, cam.combined);
+		//if(debugCollisions)renderer.render(world, cam.combined);
 	}
 	
 	

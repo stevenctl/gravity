@@ -33,11 +33,11 @@
   <object id="276" name="box" x="128" y="448" width="32" height="64"/>
   <object id="284" name="gswitch down up" x="623" y="629.667"/>
   <object id="285" name="box" x="576" y="576" width="64" height="64"/>
-  <object id="295" name="light 70 0.8 0.8 1 0.4 270 50" x="736" y="128"/>
-  <object id="297" name="light 40 0.8 0.8 1 0.4 90 30" x="881.333" y="444"/>
+  <object id="295" name="light 70 0.8 0.8 1 0.4 270 50" x="735" y="138"/>
+  <object id="297" name="light 40 0.8 0.8 1 0.4 90 30" x="881.333" y="438"/>
   <object id="298" name="light 40 0.8 0.8 1 0.4 0 30" x="564" y="606.667"/>
-  <object id="299" name="light 40 0.8 0.8 1 0.4 180 30" x="548" y="607"/>
-  <object id="300" name="light 40 0.8 0.8 1 0.4 90 30" x="735.333" y="794"/>
+  <object id="299" name="light 40 0.8 0.8 1 0.4 180 30" x="538" y="607"/>
+  <object id="300" name="light 40 0.8 0.8 1 0.4 90 30" x="734.333" y="789"/>
  </objectgroup>
  <objectgroup name="Collisions">
   <object id="259" x="0" y="0" width="960" height="128"/>

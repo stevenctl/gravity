@@ -105,5 +105,10 @@ public abstract class Entity {
 			f.setFilterData(filter);
 		}
 	}
+
+	public void dispose() {
+		// Optionally overriden
+		
+	}
 	
 }

@@ -68,7 +68,9 @@ public class SpaceJunk extends Entity{
 	}
 
 	
-	
+	public void dispose(){
+		anim.dispose();
+	}
 	
 
 }

@@ -59,7 +59,7 @@ public class GameStateManager {
 			destination = s;
 			return;
 		}
-		if(currentState != null)currentState.unload();
+		if(currentState != null && !t)currentState.unload();
 		switch(s){
 		case Help:
 			currentState = new HelpState();

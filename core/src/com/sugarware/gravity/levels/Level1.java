@@ -3,6 +3,7 @@ package com.sugarware.gravity.levels;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
@@ -25,7 +26,7 @@ import box2dLight.PointLight;
 
 public class Level1 extends PlayState {
 
-
+boolean disposed = false;
 	 Sound alarm ; 
 	Animation snoop;
 	TiledBackground bg;
@@ -160,9 +161,11 @@ public class Level1 extends PlayState {
 	}
 	
 	public void unload(){
+		if(disposed || Gdx.app.getType() == ApplicationType.Android)return;
+		disposed = true;
 		alarm.dispose();
-		for(Light l : lights){
-			l.dispose();
+		for(Light  light: lights){
+			light.remove();
 		}
 	}
 

@@ -7,6 +7,8 @@ import com.sugarware.gravity.GdxGame;
 
 public class HtmlLauncher extends GwtApplication {
 
+		ApplicationListener appListener;
+	
         @Override
         public GwtApplicationConfiguration getConfig () {
                 return new GwtApplicationConfiguration(480, 320);
@@ -14,6 +16,13 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new GdxGame();
+            if(appListener == null)appListener = new GdxGame();
+            return appListener;
+        	
         }
+
+		@Override
+		public ApplicationListener createApplicationListener() {
+			return getApplicationListener();
+		}
 }

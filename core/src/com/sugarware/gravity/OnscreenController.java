@@ -84,7 +84,6 @@ public class OnscreenController implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int x, int y, int p, int button) {
-		assignKey(x, y, p);
 		keyUp(keys[p]);
 		return false;
 	}
